@@ -8,7 +8,7 @@ import com.Neha.job_portal_applicant_tracking_system.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	Optional<User> FindUserByName(String name);
+	Optional<User> findByEmail(String email);
 	
-	boolean CheckIfEmailAlreadyExists(String email);
+	boolean existsByEmail(String email);
 }
