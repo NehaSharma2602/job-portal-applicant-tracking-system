@@ -2,6 +2,7 @@ package com.Neha.job_portal_applicant_tracking_system.entity;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.ManyToAny;
 
 import jakarta.persistence.Column;
@@ -51,6 +52,7 @@ public class User {
 	@Column(nullable = false, name = "is_active")
 	private boolean active = true;
 	
+	@CreationTimestamp
 	private LocalDateTime createdAt;
 	
 	private LocalDateTime updatedAt;

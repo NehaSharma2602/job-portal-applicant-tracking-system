@@ -1,0 +1,14 @@
+package com.Neha.job_portal_applicant_tracking_system.repository;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.Neha.job_portal_applicant_tracking_system.entity.User;
+
+public interface UserRepository extends JpaRepository<User, Long> {
+
+	Optional<User> FindUserByName(String name);
+	
+	boolean CheckIfEmailAlreadyExists(String email);
+}
