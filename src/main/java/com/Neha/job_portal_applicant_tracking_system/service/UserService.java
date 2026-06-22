@@ -15,11 +15,12 @@ public interface UserService {
 	
 	List<UserResponseDTO> getAllUser();
 	
-	UserResponseDTO updateuser(Long id, UserRequestDTO userRequestDTO);
+	UserResponseDTO updateUser(Long id, UserRequestDTO userRequestDTO);
 	
 	void deactivateUser(Long id);
 	
 	void deleteUser(Long id);
 	
 	boolean emailExists(String email);
+
 }
