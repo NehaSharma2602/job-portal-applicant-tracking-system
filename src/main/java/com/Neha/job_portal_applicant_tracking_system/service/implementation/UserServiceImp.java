@@ -3,8 +3,6 @@ package com.Neha.job_portal_applicant_tracking_system.service.implementation;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +37,7 @@ public class UserServiceImp implements UserService {
 	
 	
 	@Override
-	@Transactional
+	@Transactional //Spring wraps the annotated method in a transaction proxy. If the method completes successfully, the transaction commits. If a RuntimeException (or Error) is thrown, it rolls back.
 	public UserResponseDTO registerUser(UserRequestDTO dto) {
 		
 		//duplicate email
@@ -149,6 +147,7 @@ public class UserServiceImp implements UserService {
 	        return mapToResponseDTO(userRepo.save(user));
 	}
 	
+	// to deactive the user
 	@Override
     @Transactional
     public void deactivateUser(Long id) {
@@ -167,6 +166,8 @@ public class UserServiceImp implements UserService {
         userRepo.save(user);
     }
 	
+	
+	// delete the user
 	@Override
     @Transactional
     public void deleteUser(Long id) {
@@ -177,4 +178,10 @@ public class UserServiceImp implements UserService {
 
         userRepo.delete(user);
     }
+	
+	// email exit or not
+	 @Override
+	    public boolean emailExists(String email) {
+	        return userRepo.existsByEmail(email);
+	    }
 }
