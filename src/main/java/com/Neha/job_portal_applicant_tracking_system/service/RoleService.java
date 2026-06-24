@@ -14,7 +14,7 @@ public interface RoleService {
 	RoleResponseDTO getRoleById(Long id);
 	
 	// get all role
-	List<RoleResponseDTO> getAllRole();
+	List<RoleResponseDTO> getAllRoles();
 	
 	//get role by name
 	RoleResponseDTO getRoleByName(String role);

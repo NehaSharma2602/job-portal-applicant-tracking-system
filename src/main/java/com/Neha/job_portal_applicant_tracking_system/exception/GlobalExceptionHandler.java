@@ -71,5 +71,5 @@ public class GlobalExceptionHandler {
 					ex.getMessage());
 			return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+}
 	
-	}
