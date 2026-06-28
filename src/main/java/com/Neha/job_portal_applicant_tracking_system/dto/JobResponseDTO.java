@@ -28,5 +28,6 @@ public class JobResponseDTO {
     private JobStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    //Company → jobs → JobResponseDTO (has companyName string, not full Company object)
     private String companyName;     
 }
