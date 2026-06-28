@@ -84,8 +84,8 @@ public class Job {
     @Column(name = "updated_at")
 	private LocalDateTime updatedAt;
 	
-	 @NotNull(message = "company is required")
-	    @ManyToOne(fetch = FetchType.LAZY)
-	    @JoinColumn(name = "company_id", nullable = false)
+	@NotNull(message = "company is required")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "company_id", nullable = false)
 	private Company company;
 }
