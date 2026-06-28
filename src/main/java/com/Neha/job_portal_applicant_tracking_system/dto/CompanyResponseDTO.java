@@ -2,6 +2,7 @@ package com.Neha.job_portal_applicant_tracking_system.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
