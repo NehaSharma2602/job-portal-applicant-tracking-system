@@ -21,11 +21,14 @@ public class CompanyRequestDTO {
 	@Size(max = 500, message = "description cannot exceed 500 words")
 	private String description;
 	
-	@Pattern()
+	@Pattern(regexp = "^(https?://)?(www\\.)?[a-zA-Z0-9-]+(\\.[a-zA-Z]{2,})+(/.*)?$",
+	        message = "Invalid website URL format")
 	private String website;
 	
+	@NotBlank(message = "industry is required")
 	private String industry;
 	
+	@NotBlank(message = "location is required")
 	private String location;
 	
 }
