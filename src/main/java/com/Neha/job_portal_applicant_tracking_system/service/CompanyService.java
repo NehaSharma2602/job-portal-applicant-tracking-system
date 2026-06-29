@@ -20,7 +20,7 @@ public interface CompanyService {
 	
 	List<CompanyResponseDTO> getAllInactiveCompanies();
 	
-	List<CompanyResponseDTO> getCompaniesByIndusty(String industry);
+	List<CompanyResponseDTO> getCompaniesByIndustry(String industry);
 	
 	List<CompanyResponseDTO> getCompaniesByLocation(String Location);
 	
