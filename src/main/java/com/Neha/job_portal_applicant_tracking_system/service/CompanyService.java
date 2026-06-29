@@ -29,5 +29,6 @@ public interface CompanyService {
 	void deactivateCompany(Long id);
 	
 	void deleteCompany(Long id);
+
 	
 }

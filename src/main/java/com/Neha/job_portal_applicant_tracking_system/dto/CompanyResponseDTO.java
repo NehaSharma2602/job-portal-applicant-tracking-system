@@ -22,7 +22,7 @@ public class CompanyResponseDTO {
     private String industry;
     private String location;
     private boolean active;
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private List<JobResponseDTO> jobs;     // Shows all jobs under this company
 
