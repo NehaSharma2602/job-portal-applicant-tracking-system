@@ -168,7 +168,7 @@ public class CompanyServiceImp implements CompanyService {
 
     
     @Override
-    public List<CompanyResponseDTO> getCompaniesByIndusty(String industry) {
+    public List<CompanyResponseDTO> getCompaniesByIndustry(String industry) {
 
         List<Company> companies = companyRepo.findByIndustry(industry);
 
