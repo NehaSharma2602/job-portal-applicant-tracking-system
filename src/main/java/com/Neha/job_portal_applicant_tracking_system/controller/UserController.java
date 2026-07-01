@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.Neha.job_portal_applicant_tracking_system.dto.ApiResponse;
 import com.Neha.job_portal_applicant_tracking_system.dto.UserRequestDTO;
 import com.Neha.job_portal_applicant_tracking_system.dto.UserResponseDTO;
 import com.Neha.job_portal_applicant_tracking_system.service.UserService;
@@ -35,49 +35,49 @@ public class UserController {
 	
 	//full api : /api/users/register
 	@PostMapping("/register")
-	public ResponseEntity<UserResponseDTO> registerUser(@Valid @RequestBody UserRequestDTO userRequestDTO){
+	public ResponseEntity<ApiResponse<UserResponseDTO>> registerUser(@Valid @RequestBody UserRequestDTO userRequestDTO){
 		UserResponseDTO response = userService.registerUser(userRequestDTO);
-		return new ResponseEntity<>(response, HttpStatus.CREATED);
+		return new ResponseEntity<>(ApiResponse.success("Role created successfully", response), HttpStatus.CREATED);
 		
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<UserResponseDTO> getUserById(@PathVariable Long id){
+	public ResponseEntity<ApiResponse<UserResponseDTO>> getUserById(@PathVariable Long id){
 		UserResponseDTO response = userService.getUserById(id);
-		return new ResponseEntity<>(response, HttpStatus.OK);
+		return new ResponseEntity<>(ApiResponse.success("User fetched successfully", response), HttpStatus.OK);
 	}
 	
 	@GetMapping("/email/{email}")
-	public ResponseEntity<UserResponseDTO> getUserByEmail(@PathVariable String email){
+	public ResponseEntity<ApiResponse<UserResponseDTO>> getUserByEmail(@PathVariable String email){
 		UserResponseDTO response = userService.getUserByEmail(email);
-		return new ResponseEntity<>(response, HttpStatus.OK);
+		return new ResponseEntity<>(ApiResponse.success("User fetched successfully", response),HttpStatus.OK);
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<UserResponseDTO>> getAllUsers(){
-		List<UserResponseDTO> response = userService.getAllUser();
-		return new ResponseEntity<>(response, HttpStatus.OK);
+	public ResponseEntity<ApiResponse<List<UserResponseDTO>>>  getAllUsers(){
+		List<UserResponseDTO> response = userService.getAllUsers();
+		return new ResponseEntity<>(ApiResponse.success("All users fetched successfully", response),HttpStatus.OK);
 	}
 	
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<UserResponseDTO> updateUsers(@PathVariable Long id, @Valid @RequestBody UserRequestDTO userRequestDTO){
+	public ResponseEntity<ApiResponse<UserResponseDTO>> updateUsers(@PathVariable Long id, @Valid @RequestBody UserRequestDTO userRequestDTO){
 		
 		UserResponseDTO response = userService.updateUser(id, userRequestDTO);
 		
-		return new ResponseEntity<>(response, HttpStatus.OK);
+		return new ResponseEntity<>(ApiResponse.success("User updated successfully", response),HttpStatus.OK);
 	}
 	
 	
 	@PatchMapping("/{id}/deactivate")
-	public ResponseEntity<String> deactiveUser(@PathVariable Long id){
+	public ResponseEntity<ApiResponse<Void>> deactiveUser(@PathVariable Long id){
 		userService.deactivateUser(id);
-		return new ResponseEntity<>("user deactivated successfully", HttpStatus.OK);
+		return new ResponseEntity<>( ApiResponse.success("User deactivated successfully"),HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> deleteUser(@PathVariable Long id){
+	public ResponseEntity<ApiResponse<Void>> deleteUser(@PathVariable Long id){
 		userService.deleteUser(id);
-		return new ResponseEntity<>("user deleted successfully", HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(ApiResponse.success("User deleted successfully"), HttpStatus.NO_CONTENT);
 	}
 }
