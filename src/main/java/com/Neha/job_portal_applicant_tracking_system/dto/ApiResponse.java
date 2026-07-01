@@ -76,4 +76,25 @@ public class ApiResponse<T> {
         return response;
     }
 	
+	
+	//error with data - handle bye global handler
+	/**
+	 * creates an error response
+	 * Typically used inside GlobalExceptionHandler
+	 * 
+	 * @param message description of the error e.g. "Validation failed"
+	 * @param data    the error details e.g. Map of field errors
+	 * @param <T>     type of the data e.g. Map(String, String)
+	 * @return ApiResponse with success = false and error data
+	 */
+	
+	public static <T> ApiResponse<T> error(String message, T data) {  
+        ApiResponse<T> response = new ApiResponse<>();
+        response.success = false;
+        response.message = message;
+        response.data = data;                                          
+        response.timestamp = LocalDateTime.now();
+        return response;
+    }
+	
 }
