@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Neha.job_portal_applicant_tracking_system.dto.ApiResponse;
 import com.Neha.job_portal_applicant_tracking_system.dto.CompanyRequestDTO;
 import com.Neha.job_portal_applicant_tracking_system.dto.CompanyResponseDTO;
 import com.Neha.job_portal_applicant_tracking_system.service.CompanyService;
@@ -30,102 +31,111 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
-    // ========================POST /api/companies======================
     @PostMapping
-    public ResponseEntity<CompanyResponseDTO> createCompany(
+    public ResponseEntity<ApiResponse<CompanyResponseDTO>> createCompany(
             @Valid @RequestBody CompanyRequestDTO companyRequestDTO) {
 
         CompanyResponseDTO response = companyService.createCompany(companyRequestDTO);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);          
+        return new ResponseEntity<>(
+            ApiResponse.success("Company created successfully", response),
+            HttpStatus.CREATED);
     }
 
-    //================================ GET /api/companies/{id}
     @GetMapping("/{id}")
-    public ResponseEntity<CompanyResponseDTO> getCompanyById(
+    public ResponseEntity<ApiResponse<CompanyResponseDTO>> getCompanyById(
             @PathVariable Long id) {
 
         CompanyResponseDTO response = companyService.getCompanyById(id);
-        return new ResponseEntity<>(response, HttpStatus.OK);               
+        return new ResponseEntity<>(
+            ApiResponse.success("Company fetched successfully", response),
+            HttpStatus.OK);
     }
 
-    //============================= GET /api/companies/name/{companyName}
     @GetMapping("/name/{companyName}")
-    public ResponseEntity<CompanyResponseDTO> getCompanyByName(
+    public ResponseEntity<ApiResponse<CompanyResponseDTO>> getCompanyByName(
             @PathVariable String companyName) {
 
         CompanyResponseDTO response = companyService.getCompanyByName(companyName);
-        return new ResponseEntity<>(response, HttpStatus.OK);              
+        return new ResponseEntity<>(
+            ApiResponse.success("Company fetched successfully", response),
+            HttpStatus.OK);
     }
 
-    //============================ GET /api/companies
     @GetMapping
-    public ResponseEntity<List<CompanyResponseDTO>> getAllCompanies() {
+    public ResponseEntity<ApiResponse<List<CompanyResponseDTO>>> getAllCompanies() {
 
         List<CompanyResponseDTO> response = companyService.getAllCompanies();
-        return new ResponseEntity<>(response, HttpStatus.OK);              
+        return new ResponseEntity<>(
+            ApiResponse.success("All companies fetched successfully", response),
+            HttpStatus.OK);
     }
 
-    //================================ GET /api/companies/active
     @GetMapping("/active")
-    public ResponseEntity<List<CompanyResponseDTO>> getAllActiveCompanies() {
+    public ResponseEntity<ApiResponse<List<CompanyResponseDTO>>> getAllActiveCompanies() {
 
         List<CompanyResponseDTO> response = companyService.getAllActiveCompanies();
-        return new ResponseEntity<>(response, HttpStatus.OK);               
+        return new ResponseEntity<>(
+            ApiResponse.success("Active companies fetched successfully", response),
+            HttpStatus.OK);
     }
 
-    //=================================== GET /api/companies/inactive
     @GetMapping("/inactive")
-    public ResponseEntity<List<CompanyResponseDTO>> getAllInactiveCompanies() {
+    public ResponseEntity<ApiResponse<List<CompanyResponseDTO>>> getAllInactiveCompanies() {
 
         List<CompanyResponseDTO> response = companyService.getAllInactiveCompanies();
-        return new ResponseEntity<>(response, HttpStatus.OK);               
+        return new ResponseEntity<>(
+            ApiResponse.success("Inactive companies fetched successfully", response),
+            HttpStatus.OK);
     }
 
-    //===================================== GET /api/companies/industry/{industry}
     @GetMapping("/industry/{industry}")
-    public ResponseEntity<List<CompanyResponseDTO>> getCompaniesByIndustry(
+    public ResponseEntity<ApiResponse<List<CompanyResponseDTO>>> getCompaniesByIndustry(
             @PathVariable String industry) {
 
         List<CompanyResponseDTO> response = companyService.getCompaniesByIndustry(industry);
-        return new ResponseEntity<>(response, HttpStatus.OK);              
+        return new ResponseEntity<>(
+            ApiResponse.success("Companies fetched successfully", response),
+            HttpStatus.OK);
     }
 
-    //================================= GET /api/companies/location/{location}
     @GetMapping("/location/{location}")
-    public ResponseEntity<List<CompanyResponseDTO>> getCompaniesByLocation(
+    public ResponseEntity<ApiResponse<List<CompanyResponseDTO>>> getCompaniesByLocation(
             @PathVariable String location) {
 
         List<CompanyResponseDTO> response = companyService.getCompaniesByLocation(location);
-        return new ResponseEntity<>(response, HttpStatus.OK);              
+        return new ResponseEntity<>(
+            ApiResponse.success("Companies fetched successfully", response),
+            HttpStatus.OK);
     }
 
-    //================================ PUT /api/companies/{id}
     @PutMapping("/{id}")
-    public ResponseEntity<CompanyResponseDTO> updateCompany(
+    public ResponseEntity<ApiResponse<CompanyResponseDTO>> updateCompany(
             @PathVariable Long id,
             @Valid @RequestBody CompanyRequestDTO companyRequestDTO) {
 
         CompanyResponseDTO response = companyService.updateCompany(id, companyRequestDTO);
-        return new ResponseEntity<>(response, HttpStatus.OK);              
+        return new ResponseEntity<>(
+            ApiResponse.success("Company updated successfully", response),
+            HttpStatus.OK);
     }
 
-    //========================== PATCH /api/companies/{id}/deactivate
     @PatchMapping("/{id}/deactivate")
-    public ResponseEntity<String> deactivateCompany(
+    public ResponseEntity<ApiResponse<Void>> deactivateCompany(
             @PathVariable Long id) {
 
         companyService.deactivateCompany(id);
         return new ResponseEntity<>(
-                "Company deactivated successfully with id: " + id, HttpStatus.OK);  
+            ApiResponse.success("Company deactivated successfully"),
+            HttpStatus.OK);
     }
 
-
-    //========================= DELETE /api/companies/{id}
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCompany(
+    public ResponseEntity<ApiResponse<Void>> deleteCompany(
             @PathVariable Long id) {
 
         companyService.deleteCompany(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);                 
+        return new ResponseEntity<>(
+            ApiResponse.success("Company deleted successfully"),
+            HttpStatus.NO_CONTENT);
     }
 }
