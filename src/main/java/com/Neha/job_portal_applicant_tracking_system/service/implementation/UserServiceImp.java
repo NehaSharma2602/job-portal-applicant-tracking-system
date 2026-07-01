@@ -101,7 +101,7 @@ public class UserServiceImp implements UserService {
 	
 	//get all user
 	@Override
-	public List<UserResponseDTO> getAllUser() {
+	public List<UserResponseDTO> getAllUsers() {
 		List<User> users = userRepo.findAll();
 		List<UserResponseDTO> result = new ArrayList<>();
 		
@@ -184,4 +184,7 @@ public class UserServiceImp implements UserService {
 	    public boolean emailExists(String email) {
 	        return userRepo.existsByEmail(email);
 	    }
+
+
+	
 }
