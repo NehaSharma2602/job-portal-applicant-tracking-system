@@ -40,18 +40,21 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.CONFLICT);
     }
 
+    
     @ExceptionHandler(UserInactiveException.class)
     public ResponseEntity<ApiResponse<Void>> handleInactiveUser(UserInactiveException ex) {
 
         return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.FORBIDDEN);
     }
 
+    
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ApiResponse<Void>> handleResourceNotFound(ResourceNotFoundException ex) {
 
         return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.NOT_FOUND);
     }
 
+    
     //======================== ROLE EXCEPTIONS======================================//
     @ExceptionHandler(RoleAlreadyExistsException.class)
     public ResponseEntity<ApiResponse<Void>> handleRoleConflict(RoleAlreadyExistsException ex) {
@@ -59,6 +62,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.CONFLICT);
     }
 
+    
     //========================== COMPANY EXCEPTIONS=================================//
     @ExceptionHandler(CompanyAlreadyExistsException.class)
     public ResponseEntity<ApiResponse<Void>> handleCompanyAlreadyExists(CompanyAlreadyExistsException ex) {
@@ -66,18 +70,21 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.CONFLICT);
     }
 
+    
     @ExceptionHandler(CompanyInactiveException.class)
     public ResponseEntity<ApiResponse<Void>> handleCompanyInactive(CompanyInactiveException ex) {
 
         return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.FORBIDDEN);
     }
 
+    
     @ExceptionHandler(CompanyNotFoundException.class)
     public ResponseEntity<ApiResponse<Void>> handleCompanyNotFound(CompanyNotFoundException ex) {
 
         return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.NOT_FOUND);
     }
 
+    
     //====================== JOB EXCEPTIONS=======================================//
     @ExceptionHandler(JobAlreadyExistsException.class)
     public ResponseEntity<ApiResponse<Void>> handleJobAlreadyExists(JobAlreadyExistsException ex) {
@@ -85,18 +92,50 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.CONFLICT);
     }
 
+    
     @ExceptionHandler(JobNotFoundException.class)
     public ResponseEntity<ApiResponse<Void>> handleJobNotFound(JobNotFoundException ex) {
 
         return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.NOT_FOUND);
     }
 
+    
     @ExceptionHandler(JobNotOpenException.class)
     public ResponseEntity<ApiResponse<Void>> handleJobNotOpen(JobNotOpenException ex) {
 
         return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.BAD_REQUEST);
     }
 
+    
+    //=============== CANDIDATE EXCEPTIONS========================//
+    @ExceptionHandler(CandidateNotFoundException.class)
+    public ResponseEntity<ApiResponse<Void>> handleCandidateNotFound(CandidateNotFoundException ex) {
+
+    	return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.NOT_FOUND);
+    }
+
+    
+    @ExceptionHandler(CandidateAlreadyExistsException.class)
+    public ResponseEntity<ApiResponse<Void>> handleCandidateAlreadyExists(CandidateAlreadyExistsException ex) {
+
+    	return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.CONFLICT);
+    }
+
+    
+    @ExceptionHandler(CandidateInactiveException.class)
+    public ResponseEntity<ApiResponse<Void>> handleCandidateInactive(CandidateInactiveException ex) {
+
+    	return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.FORBIDDEN);
+    }
+
+    
+    @ExceptionHandler(UserAlreadyLinkedToACandidateException.class)
+    public ResponseEntity<ApiResponse<Void>> handleUserAlreadyLinked(UserAlreadyLinkedToACandidateException ex) {
+
+    	return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.CONFLICT);
+    }
+
+    
     //========================== GENERIC FALLBACK===============================//
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Void>> handleGenericException(Exception ex) {
