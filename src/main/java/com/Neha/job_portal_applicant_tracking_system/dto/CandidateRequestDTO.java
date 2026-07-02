@@ -38,7 +38,7 @@ public class CandidateRequestDTO {
 	 private String phoneNumber;
 
 	 @NotNull(message = "dateOfBirth is required")
-	 private LocalDate dateOfBirth;               // LocalDate not LocalDateTime — only date needed
+	 private LocalDate dateOfBirth;          
 
 	 @NotNull(message = "gender is required")
 	 private Gender gender;
@@ -47,18 +47,18 @@ public class CandidateRequestDTO {
 	 private String currentLocation;
 
 	 @Min(value = 0, message = "experienceYears cannot be negative")
-	 private int experienceYears;                 // e.g. 3
+	 private int experienceYears;                 
 
-	 private String currentJobTitle;              // e.g. "Junior Developer" — optional
+	 private String currentJobTitle;              
 
 	 @DecimalMin(value = "0.0", inclusive = true, message = "currentSalary cannot be negative")
-	 private BigDecimal currentSalary;            // optional — candidate may not want to share
+	 private BigDecimal currentSalary;            
 
 	 @DecimalMin(value = "0.0", inclusive = false, message = "expectedSalary must be greater than 0")
-	 private BigDecimal expectedSalary;           // optional
+	 private BigDecimal expectedSalary;           
 
 	 @NotBlank(message = "skills is required")
-	 private String skills;                       // e.g. "Java, Spring Boot, MySQL"
+	 private String skills;                       
 	    
 	 @NotNull(message = "user is required")
 	 private User user;
