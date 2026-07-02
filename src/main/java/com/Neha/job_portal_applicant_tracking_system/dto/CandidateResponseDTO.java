@@ -33,9 +33,7 @@ public class CandidateResponseDTO {
     private boolean active;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
-    // From User — only show name and email, not password
-    private String userEmail;        // confirms which user this candidate is linked to
+    private String userEmail;       
     private String userFirstName;
     private String userLastName;
 }
