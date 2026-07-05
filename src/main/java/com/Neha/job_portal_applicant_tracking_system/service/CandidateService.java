@@ -16,11 +16,11 @@ public interface CandidateService {
 	
 	CandidateResponseDTO getCandidateByUserId(Long userId);
 	
-	List<CandidateResponseDTO> getAllCandidate();
+	List<CandidateResponseDTO> getAllCandidates();
 	
-	List<CandidateResponseDTO> getAllActiveCandidate();
+	List<CandidateResponseDTO> getAllActiveCandidates();
 	
-	List<CandidateResponseDTO> getAllInActiveCandidate();
+	List<CandidateResponseDTO> getAllInactiveCandidates();
 	
 	List<CandidateResponseDTO> getCandidatesByLocation(String Location);
 	
