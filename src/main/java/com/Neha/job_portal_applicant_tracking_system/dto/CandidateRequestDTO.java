@@ -60,6 +60,6 @@ public class CandidateRequestDTO {
 	 @NotBlank(message = "skills is required")
 	 private String skills;                       
 	    
-	 @NotNull(message = "user is required")
-	 private User user;
+	 @NotNull(message = "userId is required")
+	 private Long userId;
 }
