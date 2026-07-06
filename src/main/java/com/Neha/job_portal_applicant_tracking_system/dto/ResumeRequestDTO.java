@@ -27,7 +27,7 @@ public class ResumeRequestDTO {
     private boolean isDefault = false;
 
     @NotNull(message = "candidateId is required")
-    private Long candidate;
+    private Long candidateId;
 	
 
 }
