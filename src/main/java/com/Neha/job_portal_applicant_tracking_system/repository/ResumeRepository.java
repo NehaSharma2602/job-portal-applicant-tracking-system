@@ -3,9 +3,11 @@ package com.Neha.job_portal_applicant_tracking_system.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import com.Neha.job_portal_applicant_tracking_system.entity.Resume;
 
-public interface ResumeRepository {
+public interface ResumeRepository extends JpaRepository<Resume, Long> {
 
 	 // Get all resumes of a candidate
     List<Resume> findByCandidateId(Long candidateId);
