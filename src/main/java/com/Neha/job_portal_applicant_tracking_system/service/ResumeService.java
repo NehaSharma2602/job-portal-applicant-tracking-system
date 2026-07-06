@@ -11,11 +11,11 @@ public interface ResumeService {
 	
 	ResumeResponseDTO getResumeById(Long id);
 	
-	List<ResumeResponseDTO> getResumesByCandidateId(Long candidateId);
-	
 	ResumeResponseDTO getDefaultResume(Long candidateId);
 	
-	ResumeResponseDTO setDefaultResume(Long resumeId, long candidateId);
+	List<ResumeResponseDTO> getResumesByCandidateId(Long candidateId);
+	
+	ResumeResponseDTO setDefaultResume(Long resumeId, Long candidateId);
 	
 	void deleteResume(Long id);
 }
