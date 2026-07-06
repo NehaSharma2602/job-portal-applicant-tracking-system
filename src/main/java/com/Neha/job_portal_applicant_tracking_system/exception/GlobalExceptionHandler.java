@@ -134,6 +134,22 @@ public class GlobalExceptionHandler {
 
     	return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.CONFLICT);
     }
+    
+
+    //=================================== RESUME EXCEPTIONS======================================//
+
+    @ExceptionHandler(ResumeNotFoundException.class)
+ 	public ResponseEntity<ApiResponse<Void>> handleResumeNotFound(ResumeNotFoundException ex) {
+
+    	return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.NOT_FOUND);
+    	
+    }
+
+    @ExceptionHandler(DefaultResumeAlreadyExistsException.class)
+    public ResponseEntity<ApiResponse<Void>> handleDefaultResumeAlreadyExists(DefaultResumeAlreadyExistsException ex) {
+
+    	return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.CONFLICT);
+    }
 
     
     //========================== GENERIC FALLBACK===============================//
