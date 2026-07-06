@@ -3,10 +3,12 @@ package com.Neha.job_portal_applicant_tracking_system.entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -16,6 +18,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
@@ -62,10 +65,10 @@ public class Candidate {
 
 	 @NotNull(message = "dateOfBirth is required")
 	 @Column(name = "date_of_birth")
-	 private LocalDate dateOfBirth;               // LocalDate not LocalDateTime — only date needed
+	 private LocalDate dateOfBirth;              
 
 	 @NotNull(message = "gender is required")
-	 @Enumerated(EnumType.STRING)                 // Stores "MALE" not 0/1 in DB
+	 @Enumerated(EnumType.STRING)                 
 	 @Column(nullable = false)
 	 private Gender gender;
 
@@ -75,22 +78,22 @@ public class Candidate {
 
 	 @Min(value = 0, message = "experienceYears cannot be negative")
 	 @Column(nullable = false, name = "experience_years")
-	 private int experienceYears;                 // e.g. 3
+	 private int experienceYears;                 
 
 	 @Column(name = "current_job_title")
-	 private String currentJobTitle;              // e.g. "Junior Developer" — optional
+	 private String currentJobTitle;              
 
 	 @DecimalMin(value = "0.0", inclusive = true, message = "currentSalary cannot be negative")
 	 @Column(name = "current_salary", precision = 10, scale = 2)
-	 private BigDecimal currentSalary;            // optional — candidate may not want to share
+	 private BigDecimal currentSalary;            
 
 	 @DecimalMin(value = "0.0", inclusive = false, message = "expectedSalary must be greater than 0")
 	 @Column(name = "expected_salary", precision = 10, scale = 2)
-	 private BigDecimal expectedSalary;           // optional
+	 private BigDecimal expectedSalary;           
 
 	 @NotBlank(message = "skills is required")
 	 @Column(nullable = false, length = 500)
-	 private String skills;                       // e.g. "Java, Spring Boot, MySQL"
+	 private String skills;                       
 
 	 @Column(nullable = false, name = "is_active")
 	 private boolean active = true;
@@ -106,7 +109,16 @@ public class Candidate {
 	 @NotNull(message = "user is required")
 	 @OneToOne(fetch = FetchType.LAZY)
 	 @JoinColumn(name = "user_id", nullable = false, unique = true)
-	 // unique = true → one user can only be one candidate
+	 //========== unique = true → one user can only be one candidate
 	 private User user;
+	 
+	// One Candidate → Many Resumes
+	 @OneToMany(
+	     mappedBy = "candidate",
+	     cascade = CascadeType.ALL,
+	     orphanRemoval = true,       //===== deleting candidate also deletes all their resumes ========//
+	     fetch = FetchType.LAZY
+	 )
+	 private List<Resume> resumes;
 	
 }
