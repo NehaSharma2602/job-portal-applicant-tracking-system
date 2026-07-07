@@ -150,6 +150,27 @@ public class GlobalExceptionHandler {
 
     	return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.CONFLICT);
     }
+    
+ 
+    //=================================== APPLICATION EXCEPTIONS ================================//
+
+    @ExceptionHandler(ApplicationNotFoundException.class)
+    public ResponseEntity<ApiResponse<Void>> handleApplicationNotFound(ApplicationNotFoundException ex) {
+
+    	return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(DuplicateApplicationException.class)
+    public ResponseEntity<ApiResponse<Void>> handleDuplicateApplication(DuplicateApplicationException ex) {
+
+    	return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(JobNotOpenForApplicationException.class)
+    public ResponseEntity<ApiResponse<Void>> handleJobNotOpenForApplication(JobNotOpenForApplicationException ex) {
+
+    	return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.BAD_REQUEST);
+ }
 
     
     //========================== GENERIC FALLBACK===============================//
