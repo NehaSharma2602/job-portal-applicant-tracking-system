@@ -28,8 +28,6 @@ public class ResumeController {
 
     private final ResumeService resumeService;
 
-
-    //================= POST /api/resumes
     @PostMapping
     public ResponseEntity<ApiResponse<ResumeResponseDTO>> uploadResume(@Valid @RequestBody ResumeRequestDTO resumeRequestDTO) {
 
@@ -38,7 +36,6 @@ public class ResumeController {
         
     }
 
-    //============= GET /api/resumes/{id}
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<ResumeResponseDTO>> getResumeById(@PathVariable Long id) {
 
@@ -47,7 +44,6 @@ public class ResumeController {
        
     }
 
-    //================ GET /api/resumes/candidate/{candidateId}
     @GetMapping("/candidate/{candidateId}")
     public ResponseEntity<ApiResponse<List<ResumeResponseDTO>>> getResumesByCandidateId(@PathVariable Long candidateId) {
 
@@ -55,7 +51,6 @@ public class ResumeController {
         return new ResponseEntity<>(ApiResponse.success("Resumes fetched successfully", response),HttpStatus.OK);                                             
     }
 
-    //================= GET /api/resumes/candidate/{candidateId}/default
     @GetMapping("/candidate/{candidateId}/default")
     public ResponseEntity<ApiResponse<ResumeResponseDTO>> getDefaultResume(@PathVariable Long candidateId) {
 
@@ -64,7 +59,6 @@ public class ResumeController {
         
     }
 
-    //======================== PATCH /api/resumes/{resumeId}/default/{candidateId}
     @PatchMapping("/{resumeId}/default/{candidateId}")
     public ResponseEntity<ApiResponse<ResumeResponseDTO>> setDefaultResume(@PathVariable Long resumeId,@PathVariable Long candidateId) {
 
@@ -72,7 +66,6 @@ public class ResumeController {
         return new ResponseEntity<>(ApiResponse.success("Default resume updated successfully", response),HttpStatus.OK);                                             
     }
 
-    //============================ DELETE /api/resumes/{id}
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteResume(@PathVariable Long id) {
 
