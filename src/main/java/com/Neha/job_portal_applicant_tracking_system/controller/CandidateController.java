@@ -31,7 +31,6 @@ public class CandidateController {
 
 	private final CandidateService candidateService;
 
-	// POST /api/candidates
 	@PostMapping
 	public ResponseEntity<ApiResponse<CandidateResponseDTO>> createCandidate(@Valid @RequestBody CandidateRequestDTO candidateRequestDTO) {
 		
@@ -39,7 +38,6 @@ public class CandidateController {
 		return new ResponseEntity<>(ApiResponse.success("Candidate registered successfully", response), HttpStatus.CREATED);                                             
 	 }
 	
-	// GET /api/candidates/{id}
 	@GetMapping("/{id}")
 	public ResponseEntity<ApiResponse<CandidateResponseDTO>> getCandidateById(@PathVariable Long id) {
 
@@ -47,7 +45,6 @@ public class CandidateController {
 		return new ResponseEntity<>(ApiResponse.success("Candidate fetched successfully", response),HttpStatus.OK);                                                  
 	}
 
-	// GET /api/candidates/email/{email}
 	@GetMapping("/email/{email}")
 	public ResponseEntity<ApiResponse<CandidateResponseDTO>> getCandidateByEmail(@PathVariable String email) {
 
@@ -55,7 +52,6 @@ public class CandidateController {
 		return new ResponseEntity<>(ApiResponse.success("Candidate fetched successfully", response),HttpStatus.OK);                                                  
 	}
 
-	// GET /api/candidates/user/{userId}
 	@GetMapping("/user/{userId}")
 	public ResponseEntity<ApiResponse<CandidateResponseDTO>> getCandidateByUserId(@PathVariable Long userId) {
 
@@ -63,7 +59,6 @@ public class CandidateController {
 		return new ResponseEntity<>(ApiResponse.success("Candidate fetched successfully", response),HttpStatus.OK);                                                  
 	}
 
-    // GET /api/candidates
 	@GetMapping
 	public ResponseEntity<ApiResponse<List<CandidateResponseDTO>>> getAllCandidates() {
 
@@ -72,7 +67,6 @@ public class CandidateController {
 	}
 
 
-	// GET /api/candidates/active
 	@GetMapping("/active")
 	public ResponseEntity<ApiResponse<List<CandidateResponseDTO>>> getAllActiveCandidates() {
 
@@ -80,14 +74,12 @@ public class CandidateController {
 		return new ResponseEntity<>(ApiResponse.success("Active candidates fetched successfully", response),HttpStatus.OK); 
 	}
 
-	// GET /api/candidates/inactive
 	@GetMapping("/inactive")
 	public ResponseEntity<ApiResponse<List<CandidateResponseDTO>>> getAllInactiveCandidates() {
 		List<CandidateResponseDTO> response = candidateService.getAllInactiveCandidates();
 		return new ResponseEntity<>(ApiResponse.success("Inactive candidates fetched successfully", response),HttpStatus.OK);                                                  
 	}
 
-	// GET /api/candidates/location/{location}
 	@GetMapping("/location/{location}")
 	public ResponseEntity<ApiResponse<List<CandidateResponseDTO>>> getCandidatesByLocation(@PathVariable String location) {
 		List<CandidateResponseDTO> response =candidateService.getCandidatesByLocation(location);
@@ -95,14 +87,11 @@ public class CandidateController {
 	}
 
 
-	// GET /api/candidates/gender?gender=MALE
 	@GetMapping("/gender")
 	public ResponseEntity<ApiResponse<List<CandidateResponseDTO>>> getCandidatesByGender(@RequestParam Gender gender) {
 		List<CandidateResponseDTO> response = candidateService.getCandidatesByGender(gender);
 		return new ResponseEntity<>(ApiResponse.success("Candidates fetched successfully", response),HttpStatus.OK);                                                  
 	}
-
-	// GET /api/candidates/experience/max?years=3
 
 	@GetMapping("/experience/max")
 	public ResponseEntity<ApiResponse<List<CandidateResponseDTO>>> getCandidatesByMaxExperience(@RequestParam int years) {
@@ -111,7 +100,6 @@ public class CandidateController {
 		return new ResponseEntity<>(ApiResponse.success("Candidates fetched successfully", response),HttpStatus.OK);                                                  
 	}
 
-	// GET /api/candidates/experience/min?years=5
 	@GetMapping("/experience/min")
 	public ResponseEntity<ApiResponse<List<CandidateResponseDTO>>> getCandidatesByMinExperience(@RequestParam int years) {
 
@@ -119,7 +107,6 @@ public class CandidateController {
 		return new ResponseEntity<>(ApiResponse.success("Candidates fetched successfully", response),HttpStatus.OK);                                                  
 	    }
 
-	// PUT /api/candidates/{id}
 	@PutMapping("/{id}")
 	public ResponseEntity<ApiResponse<CandidateResponseDTO>> updateCandidate(@PathVariable Long id,@Valid @RequestBody CandidateRequestDTO candidateRequestDTO) {
 
@@ -127,14 +114,12 @@ public class CandidateController {
 		return new ResponseEntity<>( ApiResponse.success("Candidate updated successfully", response), HttpStatus.OK);                                                  
 	}
 
-	// PATCH /api/candidates/{id}/deactivate
 	@PatchMapping("/{id}/deactivate")
 	public ResponseEntity<ApiResponse<Void>> deactivateCandidate(@PathVariable Long id) {
 		candidateService.deactivateCandidate(id);
 		return new ResponseEntity<>(ApiResponse.success("Candidate deactivated successfully"),HttpStatus.OK);                                                  
 	}
 
-	// DELETE /api/candidates/{id}
 	@DeleteMapping("/{id}")
 	public ResponseEntity<ApiResponse<Void>> deleteCandidate(@PathVariable Long id) {
 
