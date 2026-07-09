@@ -82,7 +82,8 @@ public interface ApplicationService {
      * @param jobId  the ID of the job
      * @param status the application status
      * @return List of ApplicationResponseDTO
-     
+     * @throws ApplicationNotFoundException if no applications found
+     */
     List<ApplicationResponseDTO> getApplicationsByJobAndStatus(
             Long jobId, ApplicationStatus status);
 
