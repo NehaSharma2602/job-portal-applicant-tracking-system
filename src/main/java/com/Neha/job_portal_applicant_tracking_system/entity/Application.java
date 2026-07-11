@@ -1,10 +1,12 @@
 package com.Neha.job_portal_applicant_tracking_system.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -15,6 +17,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -56,24 +59,26 @@ public class Application {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    // ─────────────────────────────────────────────
-    // RELATIONSHIP — Many Applications → One Candidate
-    // ─────────────────────────────────────────────
+    //==================== RELATIONSHIP — Many Applications → One Candidate ===========================//
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "candidate_id", nullable = false)
     private Candidate candidate;
 
-    // ─────────────────────────────────────────────
-    // RELATIONSHIP — Many Applications → One Job
-    // ─────────────────────────────────────────────
+    //==================== RELATIONSHIP — Many Applications → One Job ================================//
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_id", nullable = false)
     private Job job;
 
-    // ─────────────────────────────────────────────
-    // RELATIONSHIP — Many Applications → One Resume
-    // ─────────────────────────────────────────────
+    //==================== RELATIONSHIP — Many Applications → One Resume =======================//
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "resume_id", nullable = false)
     private Resume resume;
+    
+    @OneToMany(
+    	    mappedBy = "application",
+    	    cascade = CascadeType.ALL,
+    	    orphanRemoval = true,       // deleting application also deletes its interviews
+    	    fetch = FetchType.LAZY
+    	)
+    	private List<Interview> interviews;
 }
