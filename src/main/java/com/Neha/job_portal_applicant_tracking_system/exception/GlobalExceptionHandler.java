@@ -170,8 +170,27 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse<Void>> handleJobNotOpenForApplication(JobNotOpenForApplicationException ex) {
 
     	return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.BAD_REQUEST);
- }
+    }
+    
+    //=============================INTERVIEW EXCEPTION ====================================//
 
+    @ExceptionHandler(InterviewNotFoundException.class)
+    public ResponseEntity<ApiResponse<Void>> handleInterviewNotFound(InterviewNotFoundException ex) {
+
+    	return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ApplicationNotShortlistedException.class)
+    public ResponseEntity<ApiResponse<Void>> handleApplicationNotShortlisted(ApplicationNotShortlistedException ex) {
+
+    	return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InterviewAlreadyScheduledException.class)
+    public ResponseEntity<ApiResponse<Void>> handleInterviewAlreadyScheduled(InterviewAlreadyScheduledException ex) {
+
+    	return new ResponseEntity<>(ApiResponse.error(ex.getMessage()),HttpStatus.CONFLICT);
+    }
     
     //========================== GENERIC FALLBACK===============================//
     @ExceptionHandler(Exception.class)
