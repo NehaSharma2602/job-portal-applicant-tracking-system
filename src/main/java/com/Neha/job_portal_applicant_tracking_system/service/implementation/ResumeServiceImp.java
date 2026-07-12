@@ -55,18 +55,14 @@ public class ResumeServiceImp implements ResumeService {
 
         //Find candidate, throw exception if not found
         Candidate candidate = candidateRepo.findById(dto.getCandidateId())
-            .orElseThrow(() -> new CandidateNotFoundException(
-                "Candidate not found with id: " + dto.getCandidateId()));
+            .orElseThrow(() -> new CandidateNotFoundException("Candidate not found with id: " + dto.getCandidateId()));
 
         // If this resume is marked as default,
         //          check if a default already exists
         if (dto.isDefault()) {
-            boolean defaultExists =
-                resumeRepo.existsByCandidateIdAndIsDefaultTrue(dto.getCandidateId());
+            boolean defaultExists = resumeRepo.existsByCandidateIdAndIsDefaultTrue(dto.getCandidateId());
             if (defaultExists) {
-                throw new DefaultResumeAlreadyExistsException(
-                    "A default resume already exists for candidateId: "
-                    + dto.getCandidateId()
+                throw new DefaultResumeAlreadyExistsException("A default resume already exists for candidateId: " + dto.getCandidateId()
                     + ". Please remove the existing default first.");
             }
         }
