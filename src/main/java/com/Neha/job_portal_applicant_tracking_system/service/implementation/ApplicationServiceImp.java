@@ -40,7 +40,7 @@ public class ApplicationServiceImp implements ApplicationService {
     
     
     
- // MAPPER — Application Entity → ApplicationResponseDTO
+ //================================= mapper — Application Entity → ApplicationResponseDTO ======================================//
     private ApplicationResponseDTO mapToResponseDTO(Application application) {
 
         ApplicationResponseDTO dto = new ApplicationResponseDTO();
@@ -74,7 +74,7 @@ public class ApplicationServiceImp implements ApplicationService {
         return dto;
     }
 
-    //===============apply for job
+    //==================================== apply for job ===============================================//
     @Override
     @Transactional
     public ApplicationResponseDTO applyForJob(ApplicationRequestDTO dto) {
@@ -115,7 +115,7 @@ public class ApplicationServiceImp implements ApplicationService {
         return mapToResponseDTO(savedApplication);
     }
 
-    //================= get application by id 
+    //============================================ get application by id ============================================//
     @Override
     public ApplicationResponseDTO getApplicationById(Long id) {
 
@@ -125,7 +125,7 @@ public class ApplicationServiceImp implements ApplicationService {
         return mapToResponseDTO(application);
     }
 
-    //=================== get application by candidate
+    //=========================================== get applications by candidate ===============================================//
     @Override
     public List<ApplicationResponseDTO> getApplicationsByCandidate(Long candidateId) {
 
@@ -153,7 +153,7 @@ public class ApplicationServiceImp implements ApplicationService {
     }
 
 
-    //=============== get applications by job 
+    //=========================================== get applications by job =========================================//
     @Override
     public List<ApplicationResponseDTO> getApplicationsByJob(Long jobId) {
 
@@ -180,7 +180,7 @@ public class ApplicationServiceImp implements ApplicationService {
         return responseDTOs;
     }
 
-    //================== get application by status 
+    //======================================== get applications by status ===================================================//
     @Override
     public List<ApplicationResponseDTO> getApplicationsByStatus(ApplicationStatus status) {
 
@@ -199,7 +199,7 @@ public class ApplicationServiceImp implements ApplicationService {
         return responseDTOs;
     }
 
-    //==================get application by candidate and status 
+    //=================================== get applications by candidate and status ==============================================//
     @Override
     public List<ApplicationResponseDTO> getApplicationsByCandidateAndStatus(
             Long candidateId, ApplicationStatus status) {
@@ -225,7 +225,7 @@ public class ApplicationServiceImp implements ApplicationService {
     }
 
 
-    //===================== get applicationss by job and status
+    //=========================================== get applications by job and status =====================================//
     @Override
     public List<ApplicationResponseDTO> getApplicationsByJobAndStatus(Long jobId, ApplicationStatus status) {
 
@@ -249,7 +249,7 @@ public class ApplicationServiceImp implements ApplicationService {
         return responseDTOs;
     }
 
-    //====================== update application status
+    //============================================== update application status =============================================//
     @Override
     @Transactional
     public ApplicationResponseDTO updateApplicationStatus(Long id, ApplicationStatus status) {

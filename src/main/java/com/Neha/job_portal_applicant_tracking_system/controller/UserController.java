@@ -36,6 +36,7 @@ public class UserController {
 	//full api : /api/users/register
 	@PostMapping("/register")
 	public ResponseEntity<ApiResponse<UserResponseDTO>> registerUser(@Valid @RequestBody UserRequestDTO userRequestDTO){
+		
 		UserResponseDTO response = userService.registerUser(userRequestDTO);
 		return new ResponseEntity<>(ApiResponse.success("Role created successfully", response), HttpStatus.CREATED);
 		
@@ -43,40 +44,45 @@ public class UserController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<ApiResponse<UserResponseDTO>> getUserById(@PathVariable Long id){
+		
 		UserResponseDTO response = userService.getUserById(id);
 		return new ResponseEntity<>(ApiResponse.success("User fetched successfully", response), HttpStatus.OK);
 	}
 	
 	@GetMapping("/email/{email}")
 	public ResponseEntity<ApiResponse<UserResponseDTO>> getUserByEmail(@PathVariable String email){
+		
 		UserResponseDTO response = userService.getUserByEmail(email);
-		return new ResponseEntity<>(ApiResponse.success("User fetched successfully", response),HttpStatus.OK);
+		return new ResponseEntity<>(ApiResponse.success("User fetched successfully", response), HttpStatus.OK);
 	}
 	
 	@GetMapping
 	public ResponseEntity<ApiResponse<List<UserResponseDTO>>>  getAllUsers(){
+		
 		List<UserResponseDTO> response = userService.getAllUsers();
-		return new ResponseEntity<>(ApiResponse.success("All users fetched successfully", response),HttpStatus.OK);
+		return new ResponseEntity<>(ApiResponse.success("All users fetched successfully", response), HttpStatus.OK);
 	}
 	
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<ApiResponse<UserResponseDTO>> updateUsers(@PathVariable Long id, @Valid @RequestBody UserRequestDTO userRequestDTO){
+	public ResponseEntity<ApiResponse<UserResponseDTO>> updateUsers(@PathVariable Long id, 
+			@Valid @RequestBody UserRequestDTO userRequestDTO){
 		
 		UserResponseDTO response = userService.updateUser(id, userRequestDTO);
-		
-		return new ResponseEntity<>(ApiResponse.success("User updated successfully", response),HttpStatus.OK);
+		return new ResponseEntity<>(ApiResponse.success("User updated successfully", response), HttpStatus.OK);
 	}
 	
 	
 	@PatchMapping("/{id}/deactivate")
 	public ResponseEntity<ApiResponse<Void>> deactiveUser(@PathVariable Long id){
+		
 		userService.deactivateUser(id);
-		return new ResponseEntity<>( ApiResponse.success("User deactivated successfully"),HttpStatus.OK);
+		return new ResponseEntity<>( ApiResponse.success("User deactivated successfully"), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<ApiResponse<Void>> deleteUser(@PathVariable Long id){
+		
 		userService.deleteUser(id);
 		return new ResponseEntity<>(ApiResponse.success("User deleted successfully"), HttpStatus.NO_CONTENT);
 	}

@@ -32,7 +32,7 @@ public class ResumeController {
     public ResponseEntity<ApiResponse<ResumeResponseDTO>> uploadResume(@Valid @RequestBody ResumeRequestDTO resumeRequestDTO) {
 
         ResumeResponseDTO response = resumeService.uploadResume(resumeRequestDTO);
-        return new ResponseEntity<>(ApiResponse.success("Resume uploaded successfully", response),HttpStatus.CREATED);      
+        return new ResponseEntity<>(ApiResponse.success("Resume uploaded successfully", response), HttpStatus.CREATED);      
         
     }
 
@@ -40,7 +40,7 @@ public class ResumeController {
     public ResponseEntity<ApiResponse<ResumeResponseDTO>> getResumeById(@PathVariable Long id) {
 
         ResumeResponseDTO response = resumeService.getResumeById(id);
-        return new ResponseEntity<>(ApiResponse.success("Resume fetched successfully", response),HttpStatus.OK);
+        return new ResponseEntity<>(ApiResponse.success("Resume fetched successfully", response), HttpStatus.OK);
        
     }
 
@@ -48,28 +48,28 @@ public class ResumeController {
     public ResponseEntity<ApiResponse<List<ResumeResponseDTO>>> getResumesByCandidateId(@PathVariable Long candidateId) {
 
         List<ResumeResponseDTO> response = resumeService.getResumesByCandidateId(candidateId);
-        return new ResponseEntity<>(ApiResponse.success("Resumes fetched successfully", response),HttpStatus.OK);                                             
+        return new ResponseEntity<>(ApiResponse.success("Resumes fetched successfully", response), HttpStatus.OK);                                             
     }
 
     @GetMapping("/candidate/{candidateId}/default")
     public ResponseEntity<ApiResponse<ResumeResponseDTO>> getDefaultResume(@PathVariable Long candidateId) {
 
         ResumeResponseDTO response = resumeService.getDefaultResume(candidateId);
-        return new ResponseEntity<>(ApiResponse.success("Default resume fetched successfully", response),HttpStatus.OK);    
+        return new ResponseEntity<>(ApiResponse.success("Default resume fetched successfully", response), HttpStatus.OK);    
         
     }
 
     @PatchMapping("/{resumeId}/default/{candidateId}")
-    public ResponseEntity<ApiResponse<ResumeResponseDTO>> setDefaultResume(@PathVariable Long resumeId,@PathVariable Long candidateId) {
+    public ResponseEntity<ApiResponse<ResumeResponseDTO>> setDefaultResume(@PathVariable Long resumeId, @PathVariable Long candidateId) {
 
         ResumeResponseDTO response = resumeService.setDefaultResume(resumeId, candidateId);
-        return new ResponseEntity<>(ApiResponse.success("Default resume updated successfully", response),HttpStatus.OK);                                             
+        return new ResponseEntity<>(ApiResponse.success("Default resume updated successfully", response), HttpStatus.OK);                                             
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteResume(@PathVariable Long id) {
 
         resumeService.deleteResume(id);
-        return new ResponseEntity<>(ApiResponse.success("Resume deleted successfully"),HttpStatus.NO_CONTENT);       
+        return new ResponseEntity<>(ApiResponse.success("Resume deleted successfully"), HttpStatus.NO_CONTENT);       
     }
 }

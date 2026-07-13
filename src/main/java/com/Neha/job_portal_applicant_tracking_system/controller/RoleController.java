@@ -30,51 +30,37 @@ public class RoleController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<RoleResponseDTO>> createRole(
-            @Valid @RequestBody RoleRequestDTO roleRequestDTO) {
+    public ResponseEntity<ApiResponse<RoleResponseDTO>> createRole(@Valid @RequestBody RoleRequestDTO roleRequestDTO) {
 
         RoleResponseDTO response = roleService.createRole(roleRequestDTO);
-        return new ResponseEntity<>(
-            ApiResponse.success("Role created successfully", response),
-            HttpStatus.CREATED);
+        return new ResponseEntity<>(ApiResponse.success("Role created successfully", response), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<RoleResponseDTO>> getRoleById(
-            @PathVariable Long id) {
+    public ResponseEntity<ApiResponse<RoleResponseDTO>> getRoleById(@PathVariable Long id) {
 
         RoleResponseDTO response = roleService.getRoleById(id);
-        return new ResponseEntity<>(
-            ApiResponse.success("Role fetched successfully", response),
-            HttpStatus.OK);
+        return new ResponseEntity<>(ApiResponse.success("Role fetched successfully", response), HttpStatus.OK);
     }
 
     @GetMapping("/name/{role}")
-    public ResponseEntity<ApiResponse<RoleResponseDTO>> getRoleByName(
-            @PathVariable String role) {
+    public ResponseEntity<ApiResponse<RoleResponseDTO>> getRoleByName(@PathVariable String role) {
 
         RoleResponseDTO response = roleService.getRoleByName(role);
-        return new ResponseEntity<>(
-            ApiResponse.success("Role fetched successfully", response),
-            HttpStatus.OK);
+        return new ResponseEntity<>(ApiResponse.success("Role fetched successfully", response), HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<ApiResponse<List<RoleResponseDTO>>> getAllRoles() {
 
         List<RoleResponseDTO> response = roleService.getAllRoles();
-        return new ResponseEntity<>(
-            ApiResponse.success("All roles fetched successfully", response),
-            HttpStatus.OK);
+        return new ResponseEntity<>(ApiResponse.success("All roles fetched successfully", response), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Void>> deleteRole(
-            @PathVariable Long id) {
+    public ResponseEntity<ApiResponse<Void>> deleteRole( @PathVariable Long id) {
 
         roleService.deleteRole(id);
-        return new ResponseEntity<>(
-            ApiResponse.success("Role deleted successfully"),
-            HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>( ApiResponse.success("Role deleted successfully"), HttpStatus.NO_CONTENT);
     }
 }

@@ -34,7 +34,7 @@ public class CompanyServiceImp implements CompanyService {
 		this.jobRepo = jobRepo;
 	}
 	
-	//===================mapping Company Entity → CompanyResponseDTO
+	//===================mapping Company Entity → CompanyResponseDTO ==============================================//
 	private CompanyResponseDTO mapToResponseDTO(Company company) {
 		CompanyResponseDTO dto = new CompanyResponseDTO();
 		dto.setId(company.getId());
@@ -46,9 +46,11 @@ public class CompanyServiceImp implements CompanyService {
 		dto.setActive(company.isActive());
 		dto.setCreatedAt(company.getCreatedAt());
 		dto.setUpdatedAt(company.getUpdatedAt());
-		//1. get all the jobs from company
+		
+		// get all the jobs from company
 		List<Job> jobList = company.getJobs();
-		//2. converts jobs only if the list is not null
+		
+		// converts jobs only if the list is not null
 		if( jobList != null) {
 			List<JobResponseDTO> jobDTOs = new ArrayList<>();
 			for(Job job: jobList) {
@@ -61,7 +63,7 @@ public class CompanyServiceImp implements CompanyService {
 		
 	}
 
-    //===========mapping job entity to job reponseDTO
+    //======================================= mapping job entity to job reponseDTO =============================================//
     private JobResponseDTO mapJobToResponseDTO(Job job) {
 
         JobResponseDTO dto = new JobResponseDTO();
@@ -81,6 +83,7 @@ public class CompanyServiceImp implements CompanyService {
         return dto;
     }
     
+    //================================================ create company ============================================================//
     @Override
     @Transactional
     public CompanyResponseDTO createCompany(CompanyRequestDTO dto) {
@@ -103,20 +106,23 @@ public class CompanyServiceImp implements CompanyService {
     	return mapToResponseDTO(savedCompany);
     }
     
+    //================================================= get company by id ===========================================================//
     @Override
     public CompanyResponseDTO getCompanyById(Long id) {
-    	Company com = companyRepo.findById(id).orElseThrow(() -> new CompanyNotFoundException("Company not found with id: " + id));
+    	Company com = companyRepo.findById(id).orElseThrow(
+    			() -> new CompanyNotFoundException("Company not found with id: " + id));
     	
     	return mapToResponseDTO(com);
     }
     
+    //================================================ get company by name ==========================================================//
     @Override
     public CompanyResponseDTO getCompanyByName(String companyName) {
     	Company com = companyRepo.findByCompanyName(companyName).orElseThrow(()-> new CompanyNotFoundException("Company not found with name: " + companyName));
     		return mapToResponseDTO(com);
     }
     
-    
+    //============================================= get all companies =================================================================//
     @Override
     public List<CompanyResponseDTO> getAllCompanies() {
     	List<Company> com = companyRepo.findAll();
@@ -132,6 +138,8 @@ public class CompanyServiceImp implements CompanyService {
     	return response;
     	
     }
+    
+    //========================================== get all active companies ======================================================//
     @Override
     public List<CompanyResponseDTO> getAllActiveCompanies() {
 
@@ -150,6 +158,7 @@ public class CompanyServiceImp implements CompanyService {
         return responseDTOs;
     }
     
+    //======================================= get all inactive companies =============================================//
     @Override
     public List<CompanyResponseDTO> getAllInactiveCompanies() {
 
@@ -166,15 +175,14 @@ public class CompanyServiceImp implements CompanyService {
         return responseDTOs;
     }
 
-    
+    //================================================ get companies by industries =================================================//
     @Override
     public List<CompanyResponseDTO> getCompaniesByIndustry(String industry) {
 
         List<Company> companies = companyRepo.findByIndustry(industry);
 
         if (companies.isEmpty()) {
-            throw new CompanyNotFoundException(
-                "No companies found in industry: " + industry);
+            throw new CompanyNotFoundException("No companies found in industry: " + industry);
         }
 
         List<CompanyResponseDTO> responseDTOs = new ArrayList<>();
@@ -186,7 +194,7 @@ public class CompanyServiceImp implements CompanyService {
         return responseDTOs;
     }
 
-    
+    //===================================== get companies by location ==================================================//
     @Override
     public List<CompanyResponseDTO> getCompaniesByLocation(String location) {
 
@@ -194,8 +202,7 @@ public class CompanyServiceImp implements CompanyService {
         List<Company> companies = companyRepo.findByLocation(location);
 
         if (companies.isEmpty()) {
-            throw new CompanyNotFoundException(
-                "No companies found in location: " + location);
+            throw new CompanyNotFoundException("No companies found in location: " + location);
         }
 
         List<CompanyResponseDTO> responseDTOs = new ArrayList<>();
@@ -207,6 +214,7 @@ public class CompanyServiceImp implements CompanyService {
         return responseDTOs;
     }
 
+    //======================================================= update company =============================================//
     @Override
     @Transactional
     public CompanyResponseDTO updateCompany(Long id, CompanyRequestDTO dto) {
@@ -237,6 +245,7 @@ public class CompanyServiceImp implements CompanyService {
         return mapToResponseDTO(updatedCompany);
     }
 
+    //============================================= deactive company ===============================================//
     @Override
     @Transactional
     public void deactivateCompany(Long id) {
@@ -254,6 +263,7 @@ public class CompanyServiceImp implements CompanyService {
         companyRepo.save(company);
     }
 
+    //============================================ delete company =================================================//
     @Override
     @Transactional
     public void deleteCompany(Long id) {

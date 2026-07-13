@@ -34,8 +34,21 @@ public class UserServiceImp implements UserService {
 		this.userRepo = userRepo;
 		this.roleRepo = roleRepo;
 	}
+	//================================= mapping from entity to responseDTO ===================================================//
+		private UserResponseDTO mapToResponseDTO(User user) {
+			UserResponseDTO dto = new UserResponseDTO();
+			dto.setId(user.getId());
+			dto.setFirstName(user.getFirstName());
+			dto.setLastName(user.getLastName());
+			dto.setEmail(user.getEmail());
+			dto.setPhoneNumber(user.getPhoneNumber());
+			dto.setActive(user.isActive());
+			dto.setRoleName(user.getRole().getRole());
+			dto.setCreatedAt(user.getCreatedAt());
+			return dto;
+		}
 	
-	
+	//===================================== register user ==============================================//
 	@Override
 	@Transactional //Spring wraps the annotated method in a transaction proxy. If the method completes successfully, the transaction commits. If a RuntimeException (or Error) is thrown, it rolls back.
 	public UserResponseDTO registerUser(UserRequestDTO dto) {
@@ -45,8 +58,9 @@ public class UserServiceImp implements UserService {
 			throw new EmailAlreadyExistsException("Email already registered: " + dto.getEmail());
 		}
 		
-		Role role = roleRepo.findById(dto.getRoleId())
-				.orElseThrow(() -> new ResourceNotFoundException("Role not found with the id: " + dto.getRoleId()));
+		Role role = roleRepo.findById(dto.getRoleId()).orElseThrow(
+				() -> new ResourceNotFoundException("Role not found with the id: " + dto.getRoleId()));
+		
 		User user = new User();
 		user.setFirstName(dto.getFirstName());
 		user.setLastName(dto.getLastName());
@@ -61,21 +75,9 @@ public class UserServiceImp implements UserService {
 	}
 
 
-	// mapping from entity to responseDTO
-	private UserResponseDTO mapToResponseDTO(User user) {
-		UserResponseDTO dto = new UserResponseDTO();
-		dto.setId(user.getId());
-		dto.setFirstName(user.getFirstName());
-		dto.setLastName(user.getLastName());
-		dto.setEmail(user.getEmail());
-		dto.setPhoneNumber(user.getPhoneNumber());
-		dto.setActive(user.isActive());
-		dto.setRoleName(user.getRole().getRole());
-		dto.setCreatedAt(user.getCreatedAt());
-		return dto;
-	}
 	
-	//get user by id
+	
+	//============================================== get user by id ==========================================================//
 	@Override
 	public UserResponseDTO getUserById(Long id) {
 		User user = userRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
@@ -87,11 +89,11 @@ public class UserServiceImp implements UserService {
 		
 	}
 	
-	//get user by email
+	//========================================== get user by email ===============================================//
 	@Override
 	public UserResponseDTO getUserByEmail(String email) {
-		User user = userRepo.findByEmail(email)
-				.orElseThrow(() -> new ResourceNotFoundException("User does not exist with email: " + email));
+		User user = userRepo.findByEmail(email).orElseThrow(
+				() -> new ResourceNotFoundException("User does not exist with email: " + email));
 		
 		if(!user.isActive()) {
 			throw new UserInactiveException("User account is deactivated for email: " + email);
@@ -99,7 +101,7 @@ public class UserServiceImp implements UserService {
 		return mapToResponseDTO(user);
 	}
 	
-	//get all user
+	//============================================= get all user =====================================================//
 	@Override
 	public List<UserResponseDTO> getAllUsers() {
 		List<User> users = userRepo.findAll();
@@ -116,12 +118,12 @@ public class UserServiceImp implements UserService {
 	    return result;
 	}
 	
-	//update 
+	//====================================================== update user =====================================================//
 	@Transactional
 	@Override
 	public UserResponseDTO updateUser(Long id, UserRequestDTO dto) {
-		User user = userRepo.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+		User user = userRepo.findById(id).orElseThrow(
+				() -> new ResourceNotFoundException("User not found with id: " + id));
 
 		if (!user.isActive()) {
 		    throw new UserInactiveException("Cannot update a deactivated user with id: " + id);
@@ -133,8 +135,8 @@ public class UserServiceImp implements UserService {
 		 }
 		 
 		 if(dto.getRoleId() != null) {
-			 Role role = roleRepo.findById(dto.getRoleId())
-					 .orElseThrow(() -> new ResourceNotFoundException("Role not found with id: " + dto.getRoleId()));
+			 Role role = roleRepo.findById(dto.getRoleId()).orElseThrow(
+					 () -> new ResourceNotFoundException("Role not found with id: " + dto.getRoleId()));
 			 
 			 user.setRole(role);
 		 }
@@ -147,18 +149,16 @@ public class UserServiceImp implements UserService {
 	        return mapToResponseDTO(userRepo.save(user));
 	}
 	
-	// to deactive the user
+	//==================================================== deactivate user =======================================//
 	@Override
     @Transactional
     public void deactivateUser(Long id) {
 
-        User user = userRepo.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException(
-                "User not found with id: " + id));
+        User user = userRepo.findById(id).orElseThrow(
+        		() -> new ResourceNotFoundException("User not found with id: " + id));
 
         if (!user.isActive()) {
-            throw new UserInactiveException(
-                "User is already deactivated with id: " + id);
+            throw new UserInactiveException("User is already deactivated with id: " + id);
         }
 
         user.setActive(false);
@@ -167,19 +167,18 @@ public class UserServiceImp implements UserService {
     }
 	
 	
-	// delete the user
+	//================================================ delete user ==========================================//
 	@Override
     @Transactional
     public void deleteUser(Long id) {
 
-        User user = userRepo.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException(
-                "User not found with id: " + id));
+        User user = userRepo.findById(id).orElseThrow(
+        		() -> new ResourceNotFoundException("User not found with id: " + id));
 
         userRepo.delete(user);
     }
 	
-	// email exit or not
+	//================================================= email exit or not =============================================//
 	 @Override
 	    public boolean emailExists(String email) {
 	        return userRepo.existsByEmail(email);

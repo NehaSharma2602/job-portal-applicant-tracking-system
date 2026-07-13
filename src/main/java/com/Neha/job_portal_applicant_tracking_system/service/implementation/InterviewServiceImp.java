@@ -112,7 +112,7 @@ public class InterviewServiceImp implements InterviewService {
 		return mapToResponseDTO(savedInterview);
 	}
 	
-	//======================= Get Interview By Id ===================================//
+	//======================= get interview by id ===================================//
 	@Override
 	public InterviewResponseDTO getInterviewById(Long id) {
 		
@@ -123,7 +123,7 @@ public class InterviewServiceImp implements InterviewService {
 	}
 	
 	
-	//========================Get Interviews By Application ============================//
+	//========================get interviews by application ============================//
 	@Override
 	public List<InterviewResponseDTO> getInterviewsByApplication(Long applicationId){
 		
@@ -148,7 +148,7 @@ public class InterviewServiceImp implements InterviewService {
 		return response;
 	}
 	
-	//============================ Get Interviews By Candidate ====================================//
+	//============================ get interviews by candidate ====================================//
 	@Override
 	public List<InterviewResponseDTO> getInterviewsByCandidate(Long candidateId){
 		
@@ -175,7 +175,7 @@ public class InterviewServiceImp implements InterviewService {
 	}
 	
 	
-	//============================= Get Interviews By Job =========================================//
+	//============================= get interviews by job =========================================//
 	@Override
 	public List<InterviewResponseDTO> getInterviewsByJob(Long jobId){
 		//whether job exists or not
@@ -199,7 +199,7 @@ public class InterviewServiceImp implements InterviewService {
 		return response;
 	}
 	
-	//=====================================Get Interviews By Result =========================================//
+	//=====================================get interviews by result =========================================//
 	@Override
 	public List<InterviewResponseDTO> getInterviewsByResult(InterviewResult result){
 		List<Interview> interviews = interviewRepo.findByResult(result);
@@ -216,7 +216,7 @@ public class InterviewServiceImp implements InterviewService {
 		return response;
 	}
 	
-	//===================================== Get Interviews By Mode ===========================================//
+	//===================================== get interviews by mode ===========================================//
 	@Override
 	public List<InterviewResponseDTO> getInterviewsByMode(InterviewMode mode){
 		List<Interview> interviews = interviewRepo.findByMode(mode);
@@ -234,7 +234,7 @@ public class InterviewServiceImp implements InterviewService {
 		return response;
 	}
 	
-	//===================================== Update Interview Result and Feedback =============================//
+	//===================================== update interview result and feedback =============================//
 	@Override
 	@Transactional
 	public InterviewResponseDTO updateInterviewResult(Long id, InterviewResult result, String feedback) {
@@ -253,7 +253,7 @@ public class InterviewServiceImp implements InterviewService {
 	}
 	
 	
-	//======================================= Reschedule Interview =========================================//
+	//======================================= reschedule interview =========================================//
 	@Override
 	@Transactional
 	public InterviewResponseDTO rescheduleInterview(Long id, InterviewRequestDTO dto) {
@@ -280,7 +280,7 @@ public class InterviewServiceImp implements InterviewService {
 		return mapToResponseDTO(updatedInterview);
 	}
 	
-	//=========================================== Delete Interview ============================================//
+	//=========================================== delete interview ============================================//
 	@Override
 	@Transactional
 	public void deleteInterview(Long id) {

@@ -30,7 +30,7 @@ public class JobServiceImp implements JobService{
 	
 	private final CompanyRepository companyRepo;
 	
-	//mapper job entity to jobresponsedto
+	//========================================= mapper job entity to jobresponsedto =============================================//
 	
 	private JobResponseDTO mapToResponseDTO(Job job) {
 
@@ -51,7 +51,7 @@ public class JobServiceImp implements JobService{
         return dto;
     }
 	
-	//create job
+	//======================================= create job =======================================================//
 	@Override
 	@Transactional
 	public JobResponseDTO createJob(JobRequestDTO dto) {
@@ -86,7 +86,7 @@ public class JobServiceImp implements JobService{
         return mapToResponseDTO(saveJob);
 	}
 	
-	// all the jobs
+	//=============================================== get all the jobs =======================================================//
 	 @Override
 	    public List<JobResponseDTO> getAllJobs() {
 
@@ -105,18 +105,17 @@ public class JobServiceImp implements JobService{
 	        return responseDTOs;
 	    }
 	 
-	 //by id
+	 //=============================================== get job by id =========================================================//
 	@Override
     public JobResponseDTO getJobById(Long id) {
 
-        Job job = jobRepo.findById(id)
-            .orElseThrow(() -> new JobNotFoundException(
-                "Job not found with id: " + id));
+        Job job = jobRepo.findById(id).orElseThrow(
+        		() -> new JobNotFoundException("Job not found with id: " + id));
 
         return mapToResponseDTO(job);
     }
 	
-	//get jobs by company
+	//=========================================== get jobs by company ===========================================================//
 	@Override
 	public List<JobResponseDTO> getJobsByCompany(Long companyId){
 		
@@ -139,7 +138,7 @@ public class JobServiceImp implements JobService{
 		return dto;
 	}
 	
-	//by status
+	//======================================= get jobs by status ============================================================//
 	@Override
 	public List<JobResponseDTO> getJobsByStatus(JobStatus status){
 		
@@ -156,7 +155,7 @@ public class JobServiceImp implements JobService{
 		return dto;
 	}
 	
-	//by type
+	//================================================== get jobs by type =====================================================//
 	@Override
     public List<JobResponseDTO> getJobsByType(JobType jobType) {
 
@@ -175,6 +174,7 @@ public class JobServiceImp implements JobService{
         return dto;
     }
 	
+	//=================================================== get jobs by location ======================================================//
 	@Override
     public List<JobResponseDTO> getJobsByLocation(String location) {
 
@@ -194,7 +194,7 @@ public class JobServiceImp implements JobService{
     }
 	
 	
-	//by company id and status
+	//========================================= get jobs by company id and status ================================================//
 	@Override
 	public List<JobResponseDTO> getJobsByCompanyAndStatus(Long companyId, JobStatus status){
 		
@@ -217,7 +217,7 @@ public class JobServiceImp implements JobService{
 		return dto;
 	}
 	
-	//by experience
+	//========================================== get jobs by max experience ====================================================//
 	@Override
     public List<JobResponseDTO> getJobsByMaxExperience(int experienceRequired) {
 
@@ -237,7 +237,7 @@ public class JobServiceImp implements JobService{
         return dto;
     }
 	
-	//update job with id
+	//============================================ update job =================================================//
 	@Override
 	@Transactional
 	public JobResponseDTO updateJob(Long id, JobRequestDTO dto) {
@@ -277,7 +277,7 @@ public class JobServiceImp implements JobService{
 		
 	}
 	
-	// update status
+	//================================================ update job status ====================================================//
 	@Override
     @Transactional
     public JobResponseDTO updateJobStatus(Long id, JobStatus status) {
@@ -293,7 +293,7 @@ public class JobServiceImp implements JobService{
         return mapToResponseDTO(updatedJob);
     }
 	
-	//delete job
+	//============================================ delete job =======================================================//
 	@Override
     @Transactional
     public void deleteJob(Long id) {

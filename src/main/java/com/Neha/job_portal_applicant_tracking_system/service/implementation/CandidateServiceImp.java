@@ -30,7 +30,7 @@ public class CandidateServiceImp implements CandidateService{
 	private final CandidateRepository candidateRepo;
 	private final UserRepository userRepo;
 	
-	//=====mapper candidate entity to candidateResponseDTO
+	//=========================== mapper candidate entity to candidateResponseDTO ===================================//
 	private CandidateResponseDTO mapToResponseDTO(Candidate candidate) {
 		CandidateResponseDTO dto = new CandidateResponseDTO();
         dto.setId(candidate.getId());
@@ -58,7 +58,7 @@ public class CandidateServiceImp implements CandidateService{
         
 	}
 	
-	//=====create======//
+	//======================================== create candidate ===================================================//
 	@Override
 	@Transactional
 	public CandidateResponseDTO createCandidate(CandidateRequestDTO dto) {
@@ -103,7 +103,7 @@ public class CandidateServiceImp implements CandidateService{
 	}
 	
 	
-	//==========by email
+	//=============================================== get candidate by email ========================================================//
 	@Override
 	 public CandidateResponseDTO getCandidateByEmail(String email) {
 
@@ -114,7 +114,7 @@ public class CandidateServiceImp implements CandidateService{
 	 }
 	
 	
-	//===========by id
+	//============================================== get candidate by id =========================================================//
 	@Override
 	 public CandidateResponseDTO getCandidateById(Long id) {
 		 Candidate candidate = candidateRepo.findById(id).orElseThrow(() -> new CandidateNotFoundException(
@@ -125,7 +125,7 @@ public class CandidateServiceImp implements CandidateService{
 	 }
 	
 	
-	 //========by user id
+	 //============================================== get candidate by user id =================================================//
 	 @Override
 	 public CandidateResponseDTO getCandidateByUserId(Long userId) {
 
@@ -136,7 +136,7 @@ public class CandidateServiceImp implements CandidateService{
 	 }
 	 
 	 
-	 //=======all candidates
+	 //========================================== get all candidates ==============================================//
 	 @Override 
 	 public List<CandidateResponseDTO> getAllCandidates(){
 		  //get all candidates from db
@@ -154,7 +154,7 @@ public class CandidateServiceImp implements CandidateService{
 		 return responseDTOs;
 	 }
 	 
-	 //===== activate candidate
+	 //========================================== get all activate candidate ===========================================//
 	 @Override
 	 public List<CandidateResponseDTO> getAllActiveCandidates() {
 
@@ -174,7 +174,7 @@ public class CandidateServiceImp implements CandidateService{
 	}
 	 
 	 
-	 //========inactive candidates
+	 //=========================================== get all inactive candidates ==============================================//
 	 @Override
 	 public List<CandidateResponseDTO> getAllInactiveCandidates() {
 
@@ -194,7 +194,7 @@ public class CandidateServiceImp implements CandidateService{
 	 }
 	 
 	 
-	 //=======by location
+	 //===============================================get candidates by location ================================================//
 	 @Override
 	 public List<CandidateResponseDTO> getCandidatesByLocation(String location) {
 
@@ -213,7 +213,7 @@ public class CandidateServiceImp implements CandidateService{
 	 }
 	 
 	 
-	 //=====by gender
+	 //=============================================== get candidates by gender =================================================//
 	 @Override
 	 public List<CandidateResponseDTO> getCandidatesByGender(Gender gender) {
 
@@ -233,7 +233,7 @@ public class CandidateServiceImp implements CandidateService{
 	}
 	 
 	 
-	 //===========by maxExperience
+	 //========================================= get candidates by maxExperience ==========================================//
 	 @Override
 	 public List<CandidateResponseDTO> getCandidatesByMaxExperience(int years) {
 
@@ -254,7 +254,7 @@ public class CandidateServiceImp implements CandidateService{
 	 }
 	 
 	 
-	 //by min experience
+	 //============================================ get candidates by min experience ================================================//
 	 public List<CandidateResponseDTO> getCandidatesByMinExperience(int years) {
 
 		 List<Candidate> candidates = candidateRepo.findByExperienceYearsGreaterThanEqual(years);
@@ -274,7 +274,7 @@ public class CandidateServiceImp implements CandidateService{
 	 }
 	 
 	 
-	 //=======update candidate
+	 //============================================= update candidate ================================================//
 	 @Override
 	 @Transactional
 	 public CandidateResponseDTO updateCandidate(Long id, CandidateRequestDTO dto) {
@@ -317,35 +317,35 @@ public class CandidateServiceImp implements CandidateService{
 	 }
 
 	 
-	 //=========== deactive
+	 //================================================= deactive candidate ====================================================//
 	 @Override
 	 @Transactional
 	 public void deactivateCandidate(Long id) {
 		 
-		 // Step 1 — Find candidate, throw exception if not found
+		 //Find candidate, throw exception if not found
 		 Candidate candidate = candidateRepo.findById(id).orElseThrow(() -> new CandidateNotFoundException("Candidate not found with id: " + id));
 
-	     // Step 2 — Check if already inactive
+	     //Check if already inactive
 		 if (!candidate.isActive()) {
 			 throw new CandidateInactiveException("Candidate is already deactivated with id: " + id);
 		 }
 
-		 // Step 3 — Set active to false and save
+		 //Set active to false and save
 		 candidate.setActive(false);
 		 candidate.setUpdatedAt(LocalDateTime.now());
 		 candidateRepo.save(candidate);
 	   }
 	 
 	 
-	 //========== delete candidate
+	 //================================================= delete candidate ==================================================//
 	 @Override
 	 @Transactional
 	 public void deleteCandidate(Long id) {
 		 
-		 // Step 1 — Find candidate, throw exception if not found
+		 //Find candidate, throw exception if not found
 		 Candidate candidate = candidateRepo.findById(id).orElseThrow(() -> new CandidateNotFoundException("Candidate not found with id: " + id));
 
-		 // Step 2 — Delete from DB
+		 //Delete from DB
 		 candidateRepo.delete(candidate);
 	    }
 

@@ -28,7 +28,7 @@ public class ResumeServiceImp implements ResumeService {
     private final CandidateRepository candidateRepo;
     
 
-    //==================== MAPPER — Resume Entity → ResumeResponseDTO ===========================//
+    //==================== mapper — resume entity → ResumeResponseDTO ===========================//
     private ResumeResponseDTO mapToResponseDTO(Resume resume) {
 
         ResumeResponseDTO dto = new ResumeResponseDTO();
@@ -48,7 +48,7 @@ public class ResumeServiceImp implements ResumeService {
     }
 
 
-    //=============== UPLOAD RESUME =====================//
+    //==================================upload resume ===========================================//
     @Override
     @Transactional
     public ResumeResponseDTO uploadResume(ResumeRequestDTO dto) {
@@ -81,7 +81,7 @@ public class ResumeServiceImp implements ResumeService {
     }
 
 
-    //==================== GET RESUME BY ID ===============================//
+    //=================================================== get resume by id =====================================================//
     @Override
     public ResumeResponseDTO getResumeById(Long id) {
 
@@ -91,7 +91,7 @@ public class ResumeServiceImp implements ResumeService {
         return mapToResponseDTO(resume);
     }
 
-    //==================================== GET ALL RESUMES BY CANDIDATE ============================//
+    //====================================================get all resumes by candidates ==========================================//
     @Override
     public List<ResumeResponseDTO> getResumesByCandidateId(Long candidateId) {
 
@@ -119,7 +119,7 @@ public class ResumeServiceImp implements ResumeService {
     }
 
 
-    //============================== GET DEFAULT RESUME =====================================//
+    //=================================================== get deafult resume ============================================================//
     @Override
     public ResumeResponseDTO getDefaultResume(Long candidateId) {
 
@@ -136,8 +136,8 @@ public class ResumeServiceImp implements ResumeService {
         return mapToResponseDTO(resume);
     }
 
-    //======================= SET DEFAULT RESUME ==================================//
-    //======================= Removes default from old resume, sets on new one ==============================//
+    //=============================================== set deafult resume ==================================//
+    //============================================== removes default from old resume, sets on new one ==============================//
     @Override
     @Transactional
     public ResumeResponseDTO setDefaultResume(Long resumeId, Long candidateId) {
@@ -170,7 +170,7 @@ public class ResumeServiceImp implements ResumeService {
     }
 
 
-    //============================= Delete Resume ================================//
+    //============================================================= delete resume ================================//
     @Override
     @Transactional
     public void deleteResume(Long id) {
