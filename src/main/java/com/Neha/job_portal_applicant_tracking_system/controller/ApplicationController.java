@@ -34,54 +34,53 @@ public class ApplicationController {
     @PostMapping
     public ResponseEntity<ApiResponse<ApplicationResponseDTO>> applyForJob(@Valid @RequestBody ApplicationRequestDTO applicationRequestDTO) {
 
-        ApplicationResponseDTO response =applicationService.applyForJob(applicationRequestDTO);
-        return new ResponseEntity<>(ApiResponse.success("Application submitted successfully", response),HttpStatus.CREATED);    
+        ApplicationResponseDTO response = applicationService.applyForJob(applicationRequestDTO);
+        return new ResponseEntity<>(ApiResponse.success("Application submitted successfully", response), HttpStatus.CREATED);    
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<ApplicationResponseDTO>> getApplicationById(@PathVariable Long id) {
 
-        ApplicationResponseDTO response =applicationService.getApplicationById(id);
-        return new ResponseEntity<>(ApiResponse.success("Application fetched successfully", response),HttpStatus.OK);   
+        ApplicationResponseDTO response = applicationService.getApplicationById(id);
+        return new ResponseEntity<>(ApiResponse.success("Application fetched successfully", response), HttpStatus.OK);   
     }
 
     @GetMapping("/candidate/{candidateId}")
     public ResponseEntity<ApiResponse<List<ApplicationResponseDTO>>> getApplicationsByCandidate(@PathVariable Long candidateId) {
 
-        List<ApplicationResponseDTO> response =applicationService.getApplicationsByCandidate(candidateId);
-        return new ResponseEntity<>(ApiResponse.success("Applications fetched successfully", response),HttpStatus.OK);   
+        List<ApplicationResponseDTO> response = applicationService.getApplicationsByCandidate(candidateId);
+        return new ResponseEntity<>(ApiResponse.success("Applications fetched successfully", response), HttpStatus.OK);   
     }
 
     @GetMapping("/job/{jobId}")
     public ResponseEntity<ApiResponse<List<ApplicationResponseDTO>>> getApplicationsByJob( @PathVariable Long jobId) {
 
-        List<ApplicationResponseDTO> response =applicationService.getApplicationsByJob(jobId);
-        return new ResponseEntity<>(ApiResponse.success("Applications fetched successfully", response),HttpStatus.OK);   
+        List<ApplicationResponseDTO> response = applicationService.getApplicationsByJob(jobId);
+        return new ResponseEntity<>(ApiResponse.success("Applications fetched successfully", response), HttpStatus.OK);   
     }
 
     @GetMapping("/status")
     public ResponseEntity<ApiResponse<List<ApplicationResponseDTO>>> getApplicationsByStatus(@RequestParam ApplicationStatus status) {
 
-        List<ApplicationResponseDTO> response =applicationService.getApplicationsByStatus(status);
-        return new ResponseEntity<>(ApiResponse.success("Applications fetched successfully", response),HttpStatus.OK); 
+        List<ApplicationResponseDTO> response = applicationService.getApplicationsByStatus(status);
+        return new ResponseEntity<>(ApiResponse.success("Applications fetched successfully", response), HttpStatus.OK); 
     }
 
  
     @GetMapping("/candidate/{candidateId}/status")
-    public ResponseEntity<ApiResponse<List<ApplicationResponseDTO>>>getApplicationsByCandidateAndStatus( @PathVariable Long candidateId,
+    public ResponseEntity<ApiResponse<List<ApplicationResponseDTO>>> getApplicationsByCandidateAndStatus( @PathVariable Long candidateId,
                 @RequestParam ApplicationStatus status) {
 
         List<ApplicationResponseDTO> response = applicationService.getApplicationsByCandidateAndStatus(candidateId, status);
-        return new ResponseEntity<>(ApiResponse.success("Applications fetched successfully", response),HttpStatus.OK);      
+        return new ResponseEntity<>(ApiResponse.success("Applications fetched successfully", response), HttpStatus.OK);      
     }
 
     @GetMapping("/job/{jobId}/status")
-    public ResponseEntity<ApiResponse<List<ApplicationResponseDTO>>>getApplicationsByJobAndStatus(@PathVariable Long jobId,
+    public ResponseEntity<ApiResponse<List<ApplicationResponseDTO>>> getApplicationsByJobAndStatus(@PathVariable Long jobId,
                 @RequestParam ApplicationStatus status) {
 
         List<ApplicationResponseDTO> response = applicationService.getApplicationsByJobAndStatus(jobId, status);
-        return new ResponseEntity<>(
-            ApiResponse.success("Applications fetched successfully", response),HttpStatus.OK);   
+        return new ResponseEntity<>(ApiResponse.success("Applications fetched successfully", response), HttpStatus.OK);   
     }
 
     @PatchMapping("/{id}/status")
@@ -89,6 +88,6 @@ public class ApplicationController {
     		@RequestParam ApplicationStatus status) {
 
         ApplicationResponseDTO response = applicationService.updateApplicationStatus(id, status);
-        return new ResponseEntity<>(ApiResponse.success("Application status updated successfully", response),HttpStatus.OK);  
+        return new ResponseEntity<>(ApiResponse.success("Application status updated successfully", response), HttpStatus.OK);  
     }
 }
