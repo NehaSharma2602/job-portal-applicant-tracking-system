@@ -11,15 +11,15 @@ This system allows: <br>
 
 <h3>## Tech Stack</h3>
 
-| Technology         | Purpose |
-| Java               | Core programming language |
-| Spring Boot        | REST API framework |
-| Spring Data JPA    | Database operations |
-| Hibernate          | ORM — maps Java classes to DB tables |
-| PostgreSQL         | Relational database |
-| Lombok             | Reduces boilerplate code |
-| Jakarta Validation | Input validation |
-| Maven              | Dependency management |
+| Technology         | Purpose | </br>
+| Java               | Core programming language | </br>
+| Spring Boot        | REST API framework | </br>
+| Spring Data JPA    | Database operations |</br>
+| Hibernate          | ORM — maps Java classes to DB tables |</br>
+| PostgreSQL         | Relational database |</br>
+| Lombok             | Reduces boilerplate code | </br>
+| Jakarta Validation | Input validation |</br>
+| Maven              | Dependency management |</br>
 
 <h3>## Project Structure</h3>
 src</br>
@@ -256,29 +256,29 @@ Base URL: http://localhost:8080
 Example:  http://localhost:8080/api/roles
 
 
-## Project Flow
+## Project Flow </br>
 Admin creates Roles </br>
-↓
+↓</br>
 Admin creates Users (assigns roles) </br>
-↓
+↓</br>
 Recruiter creates Company </br>
-↓
+↓</br>
 Company posts Jobs </br>
-↓
+↓</br>
 Candidate registers Profile </br>
-↓
+↓</br>
 Candidate uploads Resume </br>
-↓
+↓</br>
 Candidate applies for Job </br>
-↓
+↓</br>
 Recruiter reviews Application </br>
-↓
+↓</br>
 Application marked as Shortlisted </br>
-↓
+↓</br>
 Interview Scheduled </br>
-↓
+↓</br>
 Interview Result updated </br>
-↓
+↓</br>
 Candidate Selected or Rejected </br>
 
 ## API Response Format
