@@ -22,19 +22,19 @@ This system allows: <br>
 | Maven              | Dependency management |
 
 <h3>## Project Structure</h3>
-src
-├── main
-│   ├── java
-│   │   └── com.Neha.job_portal_applicant_tracking_system
-│   │       ├── controller        # Handles HTTP requests
-│   │       ├── service           # Business logic (interface + implementation)
-│   │       │   └── implementation
-│   │       ├── repository        # Database operations
-│   │       ├── entity            # Database table mappings
-│   │       ├── dto               # Request and Response DTOs
-│   │       └── exception         # Custom exceptions + GlobalExceptionHandler
-│   └── resources
-│       └── application.properties
+src</br>
+├── main </br>
+│   ├── java </br>
+│   │   └── com.Neha.job_portal_applicant_tracking_system </br>
+│   │       ├── controller        # Handles HTTP requests </br>
+│   │       ├── service           # Business logic (interface + implementation) </br>
+│   │       │   └── implementation</br>
+│   │       ├── repository        # Database operations</br>
+│   │       ├── entity            # Database table mappings</br>
+│   │       ├── dto               # Request and Response DTOs</br>
+│   │       └── exception         # Custom exceptions + GlobalExceptionHandler</br>
+│   └── resources</br>
+│       └── application.properties</br>
 
 <h3>## Modules</h3>
 
@@ -75,15 +75,14 @@ PENDING → PASSED
 → CANCELLED
 
 <h3>## Database Relationships</h3>
-Role        (1) ──────── (Many) User
-User        (1) ──────── (1)    Candidate
-Company     (1) ──────── (Many) Job
-Candidate   (1) ──────── (Many) Resume
-Candidate   (1) ──────── (Many) Application
-Job         (1) ──────── (Many) Application
-Resume      (1) ──────── (Many) Application
-Application (1) ──────── (Many) Interview
----
+Role        (1) ──────── (Many) User</br>
+User        (1) ──────── (1)    Candidate</br>
+Company     (1) ──────── (Many) Job </br>
+Candidate   (1) ──────── (Many) Resume </br>
+Candidate   (1) ──────── (Many) Application </br>
+Job         (1) ──────── (Many) Application </br>
+Resume      (1) ──────── (Many) Application </br>
+Application (1) ──────── (Many) Interview </br>
 
 <h3>## API Endpoints</h3>
 
@@ -255,34 +254,32 @@ mvn spring-boot:run
 ### Step 5 — Test the APIs
 Base URL: http://localhost:8080
 Example:  http://localhost:8080/api/roles
----
+
 
 ## Project Flow
-Admin creates Roles
+Admin creates Roles </br>
 ↓
-Admin creates Users (assigns roles)
+Admin creates Users (assigns roles) </br>
 ↓
-Recruiter creates Company
+Recruiter creates Company </br>
 ↓
-Company posts Jobs
+Company posts Jobs </br>
 ↓
-Candidate registers Profile
+Candidate registers Profile </br>
 ↓
-Candidate uploads Resume
+Candidate uploads Resume </br>
 ↓
-Candidate applies for Job
+Candidate applies for Job </br>
 ↓
-Recruiter reviews Application
+Recruiter reviews Application </br>
 ↓
-Application marked as Shortlisted
+Application marked as Shortlisted </br>
 ↓
-Interview Scheduled
+Interview Scheduled </br>
 ↓
-Interview Result updated
+Interview Result updated </br>
 ↓
-Candidate Selected or Rejected
-
----
+Candidate Selected or Rejected </br>
 
 ## API Response Format
 
@@ -310,6 +307,4 @@ Error response:
     "data": null,
     "timestamp": "2024-01-15T10:30:00"
 }
-```
 
----
