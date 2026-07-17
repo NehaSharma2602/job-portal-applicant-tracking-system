@@ -16,16 +16,41 @@ import com.Neha.job_portal_applicant_tracking_system.service.RoleService;
 
 import jakarta.transaction.Transactional;
 
+/**
+ * Implementation of {@link RoleService} interface.
+ * Contains all business logic for Role operations.
+ * Interacts with {@link RoleRepository} for database operations.
+ *
+ * <p>All methods follow this pattern:
+ * <ol>
+ *   <li>Validate input and check business rules</li>
+ *   <li>Perform database operation</li>
+ *   <li>Convert entity to DTO and return</li>
+ * </ol>
+ */
 @Service
 public class RoleServiceImp implements RoleService {
 
+	/** Repository for Role database operations */
     private final RoleRepository roleRepo;
 
+    /**
+     * Constructor injection of RoleRepository.
+     * Preferred over field injection for better testability.
+     *
+     * @param roleRepo repository for role DB operations
+     */
     public RoleServiceImp(RoleRepository roleRepo) {
         this.roleRepo = roleRepo;
     }
     
-    //======================================= private mapper - role entity -> RoleresponseDTO =======================================//
+    //=================== private mapper - role entity -> RoleresponseDTO ==========================//
+    /**
+     * Converts a {@link Role} entity to a {@link RoleResponseDTO}.
+     *
+     * @param role the Role entity to convert
+     * @return RoleResponseDTO containing role details
+     */
     private RoleResponseDTO mapToResponseDTO(Role role) {
         RoleResponseDTO dto = new RoleResponseDTO();
         dto.setId(role.getId());
@@ -34,6 +59,14 @@ public class RoleServiceImp implements RoleService {
     }
 
     //===================================== create role ==================================================//
+    /**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>Role name must not already exist in the system</li>
+     * </ul>
+     */
     @Override
     @Transactional
     public RoleResponseDTO createRole(RoleRequestDTO dto) {
@@ -49,6 +82,14 @@ public class RoleServiceImp implements RoleService {
     }
 
     //========================================== get role by id ===============================================//
+    /**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>Role must exist with the given ID</li>
+     * </ul>
+     */
     @Override
     public RoleResponseDTO getRoleById(Long id) {
 
@@ -59,6 +100,14 @@ public class RoleServiceImp implements RoleService {
     }
 
     //========================================== get role by name ===============================================//
+    /**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>Role must exist with the given name</li>
+     * </ul>
+     */
     @Override
     public RoleResponseDTO getRoleByName(String roleName) {
 
@@ -69,6 +118,14 @@ public class RoleServiceImp implements RoleService {
     }
 
     //============================================= get all roles ================================================//
+    /**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>At least one role must exist in the system</li>
+     * </ul>
+     */
     @Override
     public List<RoleResponseDTO> getAllRoles() {
 
@@ -87,6 +144,14 @@ public class RoleServiceImp implements RoleService {
     }
 
     //============================================ delete role ===========================================//
+    /**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>Role must exist with the given ID</li>
+     * </ul>
+     */
     @Override
     @Transactional
     public void deleteRole(Long id) {
