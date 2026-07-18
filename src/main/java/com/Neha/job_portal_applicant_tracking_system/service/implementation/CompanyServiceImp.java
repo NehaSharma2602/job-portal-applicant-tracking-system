@@ -21,13 +21,34 @@ import com.Neha.job_portal_applicant_tracking_system.service.CompanyService;
 
 import jakarta.transaction.Transactional;
 
+/**
+ * Implementation of {@link CompanyService} interface.
+ * Contains all business logic for Company operations.
+ * Interacts with {@link CompanyRepository} for database operations.
+ *
+ * <p>All methods follow this pattern:
+ * <ol>
+ *   <li>Validate input and check business rules</li>
+ *   <li>Perform database operation</li>
+ *   <li>Convert entity to DTO and return</li>
+ * </ol>
+ */
 @Service
 public class CompanyServiceImp implements CompanyService {
 
+	/** Repository for Company database operations */
 	private final CompanyRepository companyRepo;
 	
+	/** Repository for Job database Operations */
 	private final JobRepository jobRepo;
 
+	/**
+     * Constructor injection of CompanyRepository.
+     * Preferred over field injection for better testability.
+     *
+     * @param companyRepo repository for company DB operations
+     * * @param jobRepo repository for job DB operations
+     */
 	public CompanyServiceImp(CompanyRepository companyRepo, JobRepository jobRepo) {
 		super();
 		this.companyRepo = companyRepo;
@@ -35,6 +56,13 @@ public class CompanyServiceImp implements CompanyService {
 	}
 	
 	//===================mapping Company Entity → CompanyResponseDTO ==============================================//
+	  /**
+     * Converts a {@link Company} entity to a {@link CompanyResponseDTO}.
+     * Also converts the list of Job entities to JobResponseDTOs to avoid circular reference in JSON response.
+     *
+     * @param company the Company entity to convert
+     * @return CompanyResponseDTO containing company and job details
+     */
 	private CompanyResponseDTO mapToResponseDTO(Company company) {
 		CompanyResponseDTO dto = new CompanyResponseDTO();
 		dto.setId(company.getId());
@@ -64,6 +92,13 @@ public class CompanyServiceImp implements CompanyService {
 	}
 
     //======================================= mapping job entity to job reponseDTO =============================================//
+	/**
+     * Converts a {@link Job} entity to a {@link JobResponseDTO}.
+     * Only companyName is included as a String — not the full Company object — to prevent circular JSON nesting.
+     *
+     * @param job the Job entity to convert
+     * @return JobResponseDTO containing job details
+     */
     private JobResponseDTO mapJobToResponseDTO(Job job) {
 
         JobResponseDTO dto = new JobResponseDTO();
@@ -84,6 +119,14 @@ public class CompanyServiceImp implements CompanyService {
     }
     
     //================================================ create company ============================================================//
+    /**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>Company name must not already exist in the system</li>
+     * </ul>
+     */
     @Override
     @Transactional
     public CompanyResponseDTO createCompany(CompanyRequestDTO dto) {
@@ -107,6 +150,14 @@ public class CompanyServiceImp implements CompanyService {
     }
     
     //================================================= get company by id ===========================================================//
+    /**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>Company must exist with the given ID</li>
+     * </ul>
+     */
     @Override
     public CompanyResponseDTO getCompanyById(Long id) {
     	Company com = companyRepo.findById(id).orElseThrow(
@@ -116,6 +167,14 @@ public class CompanyServiceImp implements CompanyService {
     }
     
     //================================================ get company by name ==========================================================//
+    /**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>Company must exist with the given name</li>
+     * </ul>
+     */
     @Override
     public CompanyResponseDTO getCompanyByName(String companyName) {
     	Company com = companyRepo.findByCompanyName(companyName).orElseThrow(()-> new CompanyNotFoundException("Company not found with name: " + companyName));
@@ -123,6 +182,14 @@ public class CompanyServiceImp implements CompanyService {
     }
     
     //============================================= get all companies =================================================================//
+    /**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>At least one company must exist in the system</li>
+     * </ul>
+     */
     @Override
     public List<CompanyResponseDTO> getAllCompanies() {
     	List<Company> com = companyRepo.findAll();
@@ -140,6 +207,14 @@ public class CompanyServiceImp implements CompanyService {
     }
     
     //========================================== get all active companies ======================================================//
+    /**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>At least one active company must exist</li>
+     * </ul>
+     */
     @Override
     public List<CompanyResponseDTO> getAllActiveCompanies() {
 
@@ -159,6 +234,14 @@ public class CompanyServiceImp implements CompanyService {
     }
     
     //======================================= get all inactive companies =============================================//
+    /**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>At least one inactive company must exist</li>
+     * </ul>
+     */
     @Override
     public List<CompanyResponseDTO> getAllInactiveCompanies() {
 
@@ -176,6 +259,14 @@ public class CompanyServiceImp implements CompanyService {
     }
 
     //================================================ get companies by industries =================================================//
+    /**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>At least one company must exist in that industry</li>
+     * </ul>
+     */
     @Override
     public List<CompanyResponseDTO> getCompaniesByIndustry(String industry) {
 
@@ -195,6 +286,14 @@ public class CompanyServiceImp implements CompanyService {
     }
 
     //===================================== get companies by location ==================================================//
+    /**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>At least one company must exist in that location</li>
+     * </ul>
+     */
     @Override
     public List<CompanyResponseDTO> getCompaniesByLocation(String location) {
 
@@ -215,6 +314,16 @@ public class CompanyServiceImp implements CompanyService {
     }
 
     //======================================================= update company =============================================//
+    /**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>Company must exist with the given ID</li>
+     *   <li>Company must be active</li>
+     *   <li>New company name must not be taken by another company</li>
+     * </ul>
+     */
     @Override
     @Transactional
     public CompanyResponseDTO updateCompany(Long id, CompanyRequestDTO dto) {
@@ -246,6 +355,15 @@ public class CompanyServiceImp implements CompanyService {
     }
 
     //============================================= deactive company ===============================================//
+    /**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>Company must exist with the given ID</li>
+     *   <li>Company must not already be inactive</li>
+     * </ul>
+     */
     @Override
     @Transactional
     public void deactivateCompany(Long id) {
@@ -264,6 +382,15 @@ public class CompanyServiceImp implements CompanyService {
     }
 
     //============================================ delete company =================================================//
+    /**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>Company must exist with the given ID</li>
+     * </ul>
+     * Note: Deleting a company also deletes all its jobs due to CascadeType.ALL on the jobs relationship.
+     */
     @Override
     @Transactional
     public void deleteCompany(Long id) {
