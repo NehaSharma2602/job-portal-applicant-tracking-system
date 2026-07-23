@@ -13,6 +13,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Request DTO for creating or updating a Job.
+ * Contains all required and optional fields
+ * sent by the client in the request body.
+ * Validation annotations ensure data integrity
+ * before reaching the service layer.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
