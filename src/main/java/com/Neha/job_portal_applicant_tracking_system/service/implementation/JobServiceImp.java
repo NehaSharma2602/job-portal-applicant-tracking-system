@@ -22,16 +22,36 @@ import com.Neha.job_portal_applicant_tracking_system.service.JobService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
+/**
+ * Implementation of {@link JobService} interface.
+ * Contains all business logic for Job operations.
+ * Interacts with {@link JobRepository} and {@link CompanyRepository} for database operations.
+ *
+ * <p>All methods follow this pattern:
+ * <ol>
+ *   <li>Validate input and check business rules</li>
+ *   <li>Perform database operation</li>
+ *   <li>Convert entity to DTO and return</li>
+ * </ol>
+ */
 @Service
 @AllArgsConstructor
 public class JobServiceImp implements JobService{
 
+	/** Repository for Job database operations */
 	private final JobRepository jobRepo;
 	
+	/** Repository for Company database operations — used to validate companyId */
 	private final CompanyRepository companyRepo;
 	
 	//========================================= mapper job entity to jobresponsedto =============================================//
-	
+	 /**
+     * Converts a {@link Job} entity to a {@link JobResponseDTO}.
+     * Only companyName is included as a String — not the full Company object — to prevent circular JSON nesting.
+     *
+     * @param job the Job entity to convert
+     * @return JobResponseDTO containing job details
+     */
 	private JobResponseDTO mapToResponseDTO(Job job) {
 
         JobResponseDTO dto = new JobResponseDTO();
@@ -52,6 +72,15 @@ public class JobServiceImp implements JobService{
     }
 	
 	//======================================= create job =======================================================//
+	/**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>Company must exist with the given companyId</li>
+     *   <li>Job title must not already exist in the same company</li>
+     * </ul>
+     */
 	@Override
 	@Transactional
 	public JobResponseDTO createJob(JobRequestDTO dto) {
@@ -87,6 +116,14 @@ public class JobServiceImp implements JobService{
 	}
 	
 	//=============================================== get all the jobs =======================================================//
+	/**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>At least one job must exist in the system</li>
+     * </ul>
+     */
 	 @Override
 	    public List<JobResponseDTO> getAllJobs() {
 
@@ -106,6 +143,14 @@ public class JobServiceImp implements JobService{
 	    }
 	 
 	 //=============================================== get job by id =========================================================//
+	 /**
+	     * {@inheritDoc}
+	     *
+	     * Business rules checked:
+	     * <ul>
+	     *   <li>Job must exist with the given ID</li>
+	     * </ul>
+	     */
 	@Override
     public JobResponseDTO getJobById(Long id) {
 
@@ -116,6 +161,15 @@ public class JobServiceImp implements JobService{
     }
 	
 	//=========================================== get jobs by company ===========================================================//
+	/**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>Company must exist with the given ID</li>
+     *   <li>At least one job must exist for that company</li>
+     * </ul>
+     */
 	@Override
 	public List<JobResponseDTO> getJobsByCompany(Long companyId){
 		
@@ -139,6 +193,14 @@ public class JobServiceImp implements JobService{
 	}
 	
 	//======================================= get jobs by status ============================================================//
+	/**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>At least one job must exist with that status</li>
+     * </ul>
+     */
 	@Override
 	public List<JobResponseDTO> getJobsByStatus(JobStatus status){
 		
@@ -156,6 +218,14 @@ public class JobServiceImp implements JobService{
 	}
 	
 	//================================================== get jobs by type =====================================================//
+	/**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>At least one job must exist with that type</li>
+     * </ul>
+     */
 	@Override
     public List<JobResponseDTO> getJobsByType(JobType jobType) {
 
@@ -175,6 +245,14 @@ public class JobServiceImp implements JobService{
     }
 	
 	//=================================================== get jobs by location ======================================================//
+	/**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>At least one job must exist in that location</li>
+     * </ul>
+     */
 	@Override
     public List<JobResponseDTO> getJobsByLocation(String location) {
 
@@ -195,6 +273,15 @@ public class JobServiceImp implements JobService{
 	
 	
 	//========================================= get jobs by company id and status ================================================//
+	/**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>Company must exist with the given ID</li>
+     *   <li>At least one job must match both filters</li>
+     * </ul>
+     */
 	@Override
 	public List<JobResponseDTO> getJobsByCompanyAndStatus(Long companyId, JobStatus status){
 		
@@ -218,6 +305,14 @@ public class JobServiceImp implements JobService{
 	}
 	
 	//========================================== get jobs by max experience ====================================================//
+	/**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>At least one job must match the experience filter</li>
+     * </ul>
+     */
 	@Override
     public List<JobResponseDTO> getJobsByMaxExperience(int experienceRequired) {
 
@@ -238,6 +333,16 @@ public class JobServiceImp implements JobService{
     }
 	
 	//============================================ update job =================================================//
+	/**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>Job must exist with the given ID</li>
+     *   <li>New title must not already exist in same company</li>
+     *   <li>New companyId must exist if company is being changed</li>
+     * </ul>
+     */
 	@Override
 	@Transactional
 	public JobResponseDTO updateJob(Long id, JobRequestDTO dto) {
@@ -278,6 +383,14 @@ public class JobServiceImp implements JobService{
 	}
 	
 	//================================================ update job status ====================================================//
+	/**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>Job must exist with the given ID</li>
+     * </ul>
+     */
 	@Override
     @Transactional
     public JobResponseDTO updateJobStatus(Long id, JobStatus status) {
@@ -294,6 +407,14 @@ public class JobServiceImp implements JobService{
     }
 	
 	//============================================ delete job =======================================================//
+	/**
+     * {@inheritDoc}
+     *
+     * Business rules checked:
+     * <ul>
+     *   <li>Job must exist with the given ID</li>
+     * </ul>
+     */
 	@Override
     @Transactional
     public void deleteJob(Long id) {
